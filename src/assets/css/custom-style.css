@@ -1,0 +1,237 @@
+.custom-font {
+  font-size: 16px !important;
+  text-transform: uppercase;
+}
+
+.table {
+  margin-bottom: 0 !important;
+}
+
+.form-select {
+  padding: 5px !important;
+  border-radius: 5px !important;
+}
+
+.is-invalid {
+  animation: shake 0.2s 2; /* Shake for 0.2 seconds, 2 times */
+  border-color: #ff0026 !important;
+  background-color: #fdeded !important;
+}
+
+.custom-validation {
+  animation: shake 0.2s 2; /* Shake for 0.2 seconds, 2 times */
+  border-color: #ff0026;
+  background-color: #fdeded !important;
+}
+
+.text-validation {
+  color: #ff0026;
+}
+
+.group-invalid > label {
+  color: #ff0026 !important;
+}
+
+.group-invalid > input,
+.group-invalid > select {
+  animation: shake 0.4s 1; /* Shake for 0.2 seconds, 2 times */
+  border-color: #ff0026 !important;
+  background-color: #fdeded !important;
+}
+
+.other-reason-specify {
+  animation: shake 0.4s 1; /* Shake for 0.2 seconds, 2 times */
+  border-color: #ff0026 !important;
+  background-color: #fdeded !important;
+}
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  10%,
+  90% {
+    transform: translateX(-2px);
+  }
+  20%,
+  80% {
+    transform: translateX(2px);
+  }
+  30%,
+  70% {
+    transform: translateX(-2px);
+  }
+  40%,
+  60% {
+    transform: translateX(2px);
+  }
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+@keyframes pulse-bg {
+  0% {
+    background-color: #ddd;
+  }
+  50% {
+    background-color: #d0d0d0;
+  }
+  100% {
+    background-color: #ddd;
+  }
+}
+
+.p-toast-message.p-toast-message-error {
+  border-left: 7px solid #fd6666;
+  opacity: 1;
+  background: #fde8e7;
+  margin: 7px;
+  border-radius: 5px;
+}
+
+.p-toast-message.p-toast-message-error .p-toast-message-content svg {
+  color: #fd6666;
+}
+
+.p-toast-message-error {
+  color: #fd6666 !important;
+}
+
+.p-toast-message-content {
+  padding: 10px !important;
+  align-items: center;
+  display: flex;
+  gap: 5;
+}
+
+.p-toast-message-text {
+  margin: 5px 10px;
+}
+
+.p-toast-message-text .p-toast-summary {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 3px !important;
+}
+
+.p-toast-message-text .p-toast-detail {
+  font-size: 14px;
+}
+
+.p-toast-message.p-toast-message-success {
+  border-left: 7px solid #34b189;
+  opacity: 1;
+  background: #e7f9f1;
+  margin: 7px;
+  border-radius: 7px;
+}
+
+.p-toast-message.p-toast-message-success .p-toast-message-content svg {
+  color: #34b189;
+}
+
+.p-toast-message-success {
+  color: #34b189 !important;
+}
+
+.p-toast-message.p-toast-message-info {
+  border-left: 7px solid #787aff;
+  opacity: 1;
+  background: #ebebff;
+  margin: 7px;
+  border-radius: 7px;
+}
+
+.p-toast-message.p-toast-message-info .p-toast-message-content svg {
+  color: #787aff;
+}
+
+.p-toast-message-info {
+  color: #787aff !important;
+}
+
+.p-toast-message.p-toast-message-warn {
+  border-left: 7px solid #cf9439;
+  opacity: 0.95;
+  background: #fdf2e4;
+  margin: 7px;
+  border-radius: 7px;
+}
+
+.p-toast-message.p-toast-message-warn .p-toast-message-content svg {
+  color: #cf9439;
+}
+
+.p-toast-message-warn {
+  color: #cf9439 !important;
+}
+
+.dark-color {
+  /* light color */
+  color: #2a3547;
+}
+
+.scale-icon {
+  font-size: 25px !important;
+}
+
+.scale-icon:hover {
+  transform: scale(1.5) !important;
+  transition: 1.5s !important;
+}
+
+input:required,
+select.form-select:required {
+  background-color: #fcfdee;
+  color: #7c8fac;
+}
+
+/* .e-customize .e-skeleton.e.shimmer-wave::after{
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: calc(200% + 200px);
+  animation: pulse-bg 1s infinite;
+  animation-timing-function: ease-in-out
+}
+
+.e-customize .e-skeleton.e-skeleton-circle{
+  background: #ddd;
+}
+
+.e-skeleton.e-shimmer-wave::after {
+  animation: pulse-bg 1s infinite !important;
+  animation-timing-function: ease-in-out;
+} */
+
+.fade-effect {
+  opacity: 3;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.fade-effect.fade-out {
+  opacity: 1;
+}
+
+button:disabled {
+  cursor: not-allowed !important;
+}
+
+.invalid-input {
+  animation: shake 0.4s 1; /* Shake for 0.2 seconds, 2 times */
+  border-color: #ff0026 !important;
+  background-color: #fdeded !important;
+}
