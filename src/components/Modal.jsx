@@ -33,7 +33,14 @@ const ModalOverlay = ({ children, title, onClose }) => {
 
 const portalOverlay = document.getElementById("overlays");
 const Modal = ({ title, onClose }) => {
-  return <>{ReactDOM.createPortal(<ModalOverlay />, portalOverlay)}</>;
+  return (
+    <>
+      {ReactDOM.createPortal(
+        <ModalOverlay title={title} onClose={onClose} />,
+        portalOverlay
+      )}
+    </>
+  );
 };
 
 export default Modal;

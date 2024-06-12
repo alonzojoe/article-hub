@@ -5,7 +5,7 @@ const Card = ({ className, children }) => {
   const combinedClass = `${defaultClassName} ${className || ""}`.trim();
   return (
     <div className={combinedClass}>
-      <div className="card-body">{children}</div>
+      <div className="card-body border-bottom">{children}</div>
     </div>
   );
 };
