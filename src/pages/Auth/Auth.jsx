@@ -11,7 +11,12 @@ const Auth = () => {
     <>
       <AuthContainer>
         <Card className="mb-0">
-          <Logo />
+          <a
+            href="#"
+            className="text-nowrap logo-img text-center d-block mb-4 w-100"
+          >
+            <Logo customWidth="50" />
+          </a>
           <form>
             <div className="mb-3">
               <Label htmlFor="email" className="form-label">
