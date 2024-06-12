@@ -6,11 +6,11 @@ const PostControls = () => {
         <div className="hstack gap-6">
           <a
             className="p-0 hstack justify-content-center round-32 btn btn-primary rounded-circle"
-            href="javascript:void(0)"
+            href="#"
           >
             <i className="ti ti-photo"></i>
           </a>
-          <a href="javascript:void(0)" className="text-dark link-primary">
+          <a href="#" className="text-dark link-primary">
             Photo
           </a>
         </div>

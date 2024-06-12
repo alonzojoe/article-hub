@@ -1,0 +1,48 @@
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2000;
+}
+
+.modal-container {
+  width: 70vh;
+  height: fit-content;
+  max-height: 100vh;
+  animation: showModal 0.5s ease-in;
+}
+
+.close-btn {
+  cursor: pointer;
+  font-size: 20px;
+  top: -1px;
+  right: 10px;
+}
+
+.close-btn i:hover {
+  color: red;
+  transform: scale(1.2);
+  transition: transform 0.4s ease-in;
+}
+
+@media screen and (max-width: 768px) {
+  .modal-container {
+    width: 90vh m !important;
+  }
+}
+
+@keyframes showModal {
+  0% {
+    opacity: 0;
+    transform: translateX(0, -10px);
+  }
+  100% {
+    opacity: 1;
+  }
+}

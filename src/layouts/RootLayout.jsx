@@ -10,7 +10,6 @@ const RootLayout = () => {
           id="main-wrapper"
           data-layout="vertical"
           data-navbarbg="skin6"
-          data-sidebartype="full"
           data-header-position="fixed"
         >
           <Navbar />
