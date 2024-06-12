@@ -1,5 +1,5 @@
 import Button from "../../../../components/Button";
-const PostControls = () => {
+const PostControls = ({ onShow }) => {
   return (
     <div className="d-flex align-items-center gap-6 flex-wrap">
       <div className="hstack align-self-center gap-3">
@@ -7,6 +7,7 @@ const PostControls = () => {
           <a
             className="p-0 hstack justify-content-center round-32 btn btn-primary rounded-circle"
             href="#"
+            onClick={onShow}
           >
             <i className="ti ti-photo"></i>
           </a>
@@ -15,7 +16,9 @@ const PostControls = () => {
           </a>
         </div>
       </div>
-      <Button className="btn-primary ms-auto">Post</Button>
+      <Button onClick={onShow} className="btn-primary ms-auto">
+        Post
+      </Button>
     </div>
   );
 };

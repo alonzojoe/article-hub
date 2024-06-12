@@ -12,18 +12,13 @@ const ModalOverlay = ({ children, title, onClose }) => {
         className={`${classes["modal-container"]} bg-white rounded position-relative`}
       >
         <span
-          className={`${classes["close-btn"]} position-absolute cst-close`}
+          className={`${classes["close-btn"]} position-absolute cst-close z-3`}
           onClick={onClose}
         >
           <i className="fa fa-times" aria-hidden="true"></i>
         </span>
-        <div className="position-relative border p-2 m-2 mt-4">
-          <div
-            className="position-absolute bg-primary text-white px-2"
-            style={{ top: "-13px", left: "5px" }}
-          >
-            {title}
-          </div>
+        <div className="position-relative border-bottom px-2 py-2 m-2 mt-2">
+          <div className="text-dark h4 px-2 fw-bold text-center">{title}</div>
           <div>{children}</div>
         </div>
       </div>
@@ -32,11 +27,13 @@ const ModalOverlay = ({ children, title, onClose }) => {
 };
 
 const portalOverlay = document.getElementById("overlays");
-const Modal = ({ title, onClose }) => {
+const Modal = ({ title, onClose, children }) => {
   return (
     <>
       {ReactDOM.createPortal(
-        <ModalOverlay title={title} onClose={onClose} />,
+        <ModalOverlay title={title} onClose={onClose}>
+          {children}
+        </ModalOverlay>,
         portalOverlay
       )}
     </>
