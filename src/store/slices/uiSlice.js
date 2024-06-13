@@ -2,15 +2,16 @@ import { createSlice } from "@reduxjs/toolkit";
 import { getLocalStorage, setLocalStorage } from "../../utils/storageActions";
 
 const currentTheme = getLocalStorage("appTheme");
+const deviceTheme = () => {
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+};
 
 const uiSlice = createSlice({
   name: "ui",
   initialState: {
-    appTheme: currentTheme
-      ? currentTheme
-      : window.matchMedia("(prefers-color-scheme: dark)").matches
-      ? "dark"
-      : "light",
+    appTheme: currentTheme ? currentTheme : deviceTheme(),
   },
   reducers: {
     changeTheme(state, action) {

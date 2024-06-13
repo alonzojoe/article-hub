@@ -7,26 +7,29 @@ import { uiActions } from "../store/slices/uiSlice";
 const RootLayout = () => {
   const dispatch = useDispatch();
   const appTheme = useSelector((state) => state.ui.appTheme);
+  const toggleTheme = () => {
+    dispatch(uiActions.changeTheme(appTheme === "dark" ? "light" : "dark"));
+  };
+  // useEffect(() => {
+  //   console.log("useEffect");
+  //   const detectDefaultTheme = () => {
+  //     const preferredTheme = window.matchMedia("(prefers-color-scheme: dark)")
+  //       .matches
+  //       ? "dark"
+  //       : "light";
+  //     dispatch(uiActions.changeTheme(preferredTheme));
+  //   };
 
-  useEffect(() => {
-    console.log("useEffect");
-    const detectDefaultTheme = () => {
-      const preferredTheme = window.matchMedia("(prefers-color-scheme: dark)")
-        .matches
-        ? "dark"
-        : "light";
-      dispatch(uiActions.changeTheme(preferredTheme));
-    };
-
-    if (!getLocalStorage("appTheme")) {
-      console.log("localS", !getLocalStorage("appTheme"));
-      detectDefaultTheme();
-    }
-  }, [dispatch]);
+  //   if (!getLocalStorage("appTheme")) {
+  //     console.log("localS", !getLocalStorage("appTheme"));
+  //     detectDefaultTheme();
+  //   }
+  // }, [dispatch]);
 
   return (
     <>
       <h1>{appTheme}</h1>
+      <button onClick={toggleTheme}>sadasd</button>
       <div id="main-wrapper">
         <div
           className="page-wrapper"
