@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useCallback } from "react";
 import Card from "../../../../components/Card";
 import Textarea from "../../../../components/Textarea";
 import Label from "../../../../components/Label";
@@ -11,10 +11,18 @@ import profile from "../../../../assets/images/avatars/user-5.jpg";
 import useToggle from "../../../../hooks/useToggle";
 const CreatePost = () => {
   const [value, toggleValue] = useToggle(false);
-  const feedRef = useRef();
+  const postTitle = useRef();
+
+  const setPostTitleRef = useCallback((node) => {
+    if (node) {
+      node.focus();
+    }
+    postTitle.current = node;
+  }, []);
+
   const showCreate = () => {
+    console.log("create post has been rendered");
     toggleValue(true);
-    feedRef.current.blur();
   };
 
   return (
@@ -32,11 +40,10 @@ const CreatePost = () => {
           </div>
           <div className="form-floating mb-3 flex-grow-1">
             <Textarea
-              ref={feedRef}
               className="h-140"
               placeholder="Leave a comment here"
               id="postText"
-              onClick={() => toggleValue(true)}
+              onFocus={showCreate}
             ></Textarea>
             <Label htmlFor="postText">Share your article...</Label>
           </div>
@@ -58,7 +65,11 @@ const CreatePost = () => {
             <h6 className="fw-semibold mb-0 fs-4">Joenell Alonzo</h6>
           </div>
           <div className="mb-3">
-            <Input type="text" placeholder="Article Title" />
+            <Input
+              ref={setPostTitleRef}
+              type="text"
+              placeholder="Article Title"
+            />
           </div>
           <div className="mb-3">
             <Textarea
