@@ -56,7 +56,6 @@ const CreatePost = () => {
           <hr />
           <div className="d-flex align-items-center gap-3 mb-3">
             <Avatar
-              avatar={profile}
               className="rounded-circle"
               width="40"
               height="40"

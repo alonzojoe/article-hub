@@ -2,20 +2,19 @@ import React from "react";
 import Logo from "../../components/Logo";
 import AccountDetails from "./NavbarItems/AccountDetails";
 import NavContainer from "./NavbarItems/NavContainer";
-
+import { Link } from "react-router-dom";
 const Navbar = () => {
   return (
     <NavContainer>
       <ul className="navbar-nav">
         <li className="nav-item">
-          <a
-            className="nav-link text-nowrap logo-img"
-            style={{ cursor: "pointer" }}
+          <Link
+            className="nav-link text-nowrap logo-img cursor-pointer"
             id="headerCollapse"
-            href="#"
+            to="/"
           >
             <Logo width="60" height="120" />
-          </a>
+          </Link>
         </li>
       </ul>
 

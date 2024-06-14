@@ -4,32 +4,23 @@ import { Outlet } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import { getLocalStorage } from "../utils/storageActions";
 import { uiActions } from "../store/slices/uiSlice";
+
 const RootLayout = () => {
   const dispatch = useDispatch();
-  const appTheme = useSelector((state) => state.ui.appTheme);
-  const toggleTheme = () => {
-    dispatch(uiActions.changeTheme(appTheme === "dark" ? "light" : "dark"));
-  };
-  // useEffect(() => {
-  //   console.log("useEffect");
-  //   const detectDefaultTheme = () => {
-  //     const preferredTheme = window.matchMedia("(prefers-color-scheme: dark)")
-  //       .matches
-  //       ? "dark"
-  //       : "light";
-  //     dispatch(uiActions.changeTheme(preferredTheme));
-  //   };
+  const localStorageTheme = getLocalStorage("appTheme");
+  console.log("lstorage", localStorageTheme);
+  useEffect(() => {
+    const setDarkTheme = () => {
+      dispatch(uiActions.changeTheme("dark"));
+    };
 
-  //   if (!getLocalStorage("appTheme")) {
-  //     console.log("localS", !getLocalStorage("appTheme"));
-  //     detectDefaultTheme();
-  //   }
-  // }, [dispatch]);
+    if (localStorageTheme === "dark") setDarkTheme();
+
+    console.log("useEffect");
+  }, [dispatch, localStorageTheme]);
 
   return (
     <>
-      <h1>{appTheme}</h1>
-      <button onClick={toggleTheme}>sadasd</button>
       <div id="main-wrapper">
         <div
           className="page-wrapper"

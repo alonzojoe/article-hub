@@ -1,12 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getLocalStorage, setLocalStorage } from "../../utils/storageActions";
+import { getDeviceTheme } from "../../utils/theme";
 
 const currentTheme = getLocalStorage("appTheme");
-const deviceTheme = () => {
-  return window.matchMedia("(prefers-color-scheme: dark)").matches
-    ? "dark"
-    : "light";
-};
+const deviceTheme = getDeviceTheme();
 
 const uiSlice = createSlice({
   name: "ui",
@@ -17,14 +14,16 @@ const uiSlice = createSlice({
     changeTheme(state, action) {
       console.log("pay;", action.payload);
       state.appTheme = action.payload;
-      // setLocalStorage("appTheme", action.payload);
+      setLocalStorage("appTheme", action.payload);
 
       const head = document.head;
-      const link = document.getElementById("dark-theme");
+      let link = document.getElementById("dark-theme");
 
       if (action.payload === "dark") {
-        if (link) {
+        if (!link) {
+          console.log("action payload");
           link = document.createElement("link");
+          link.rel = "stylesheet";
           link.id = "dark-theme";
           link.href = "/style-dark.min.css";
           head.appendChild(link);

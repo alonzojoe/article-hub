@@ -4,7 +4,7 @@ import App from "./App.jsx";
 import { Provider } from "react-redux";
 import store from "./store/index.js";
 import "./assets/css/style.min.css";
-import "./assets/libss/bootstrap/js/theme.bundle.min.js";
+import "./assets/libs/theme.bundle.min.js";
 import "./assets/css/tabler-icons.css";
 import "./assets/css/custom-style.css";
 

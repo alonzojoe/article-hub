@@ -1,7 +1,7 @@
 import React from "react";
+import avatar from "../assets/images/avatars/react.png";
 
-
-const Avatar = ({ avatar, ...props }) => {
+const Avatar = (props) => {
   return <img src={avatar} {...props} />;
 };
 

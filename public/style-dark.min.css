@@ -43436,6 +43436,6 @@ div:where(.swal2-container) .swal2-html-container {
 
 
 .app-header {
-    border-bottom: 2px solid #333 !important; /* Adjust the color and thickness as needed */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important; /* Adjust the shadow properties as needed */
+    border-bottom: 2px solid #333 !important; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important; 
   }
