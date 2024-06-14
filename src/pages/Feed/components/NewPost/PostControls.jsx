@@ -6,14 +6,11 @@ const PostControls = ({ onShow }) => {
         <div className="hstack gap-6">
           <a
             className="p-0 hstack justify-content-center round-32 btn btn-primary rounded-circle"
-            href="#"
             onClick={onShow}
           >
             <i className="ti ti-photo"></i>
           </a>
-          <a href="#" className="text-dark link-primary">
-            Photo
-          </a>
+          <a className="text-dark link-primary">Photo</a>
         </div>
       </div>
       <Button onClick={onShow} className="btn-primary ms-auto">

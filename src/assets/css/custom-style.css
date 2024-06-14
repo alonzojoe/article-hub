@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swa");
 .custom-font {
   font-size: 16px !important;
   text-transform: uppercase;
@@ -231,7 +232,21 @@ button:disabled {
 }
 
 .invalid-input {
-  animation: shake 0.4s 1; /* Shake for 0.2 seconds, 2 times */
+  animation: shake 0.4s 1;
   border-color: #ff0026 !important;
   background-color: #fdeded !important;
+}
+
+a {
+  cursor: pointer;
+}
+
+.feed-spinner-container {
+  z-index: 1999 !important;
+  margin-top: 200px !important;
+}
+
+.feed-spinner {
+  border-radius: 50%;
+  background: #ffffff;
 }

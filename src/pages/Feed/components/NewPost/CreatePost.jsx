@@ -41,11 +41,11 @@ const CreatePost = () => {
           <div className="form-floating mb-3 flex-grow-1">
             <Textarea
               className="h-140"
-              placeholder="Leave a comment here"
+              placeholder="Write your article, Joe.."
               id="postText"
               onFocus={showCreate}
             ></Textarea>
-            <Label htmlFor="postText">Share your article...</Label>
+            <Label htmlFor="postText">Write your article, Joe...</Label>
           </div>
         </div>
 
@@ -61,7 +61,7 @@ const CreatePost = () => {
               height="40"
               alt="user"
             />
-            <h6 className="fw-semibold mb-0 fs-4">Joenell Alonzo</h6>
+            <h6 className="fw-semibold mb-0 fs-4">Joe</h6>
           </div>
           <div className="mb-3">
             <Input

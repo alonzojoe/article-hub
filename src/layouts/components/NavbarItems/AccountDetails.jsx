@@ -39,7 +39,7 @@ const AccountDetails = () => {
           </li>
           <li className="nav-item">
             <a className="nav-link" href="#">
-              <h5 className="mt-2 fw-semibold">JOE</h5>
+              <h5 className="mt-2 fw-semibold">Joe</h5>
             </a>
           </li>
           <li className="nav-item dropdown">

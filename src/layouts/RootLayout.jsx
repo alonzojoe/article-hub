@@ -1,26 +1,18 @@
 import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Outlet } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import { getLocalStorage } from "../utils/storageActions";
-import { uiActions } from "../store/slices/uiSlice";
-
+import useTheme from "../hooks/useTheme";
+import FeedSpinner from "../components/FeedSpinner";
 const RootLayout = () => {
-  const dispatch = useDispatch();
-  const localStorageTheme = getLocalStorage("appTheme");
-  console.log("lstorage", localStorageTheme);
+  const [setAppTheme] = useTheme();
   useEffect(() => {
-    const setDarkTheme = () => {
-      dispatch(uiActions.changeTheme("dark"));
-    };
-
-    if (localStorageTheme === "dark") setDarkTheme();
-
-    console.log("useEffect");
-  }, [dispatch, localStorageTheme]);
+    setAppTheme();
+  }, [setAppTheme]);
 
   return (
     <>
+      <FeedSpinner />
       <div id="main-wrapper">
         <div
           className="page-wrapper"

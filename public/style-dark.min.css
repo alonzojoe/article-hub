@@ -43439,3 +43439,9 @@ div:where(.swal2-container) .swal2-html-container {
     border-bottom: 2px solid #333 !important; 
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important; 
   }
+
+
+  .feed-spinner{
+    border-radius: 50%;
+    background: #273041;
+  }
