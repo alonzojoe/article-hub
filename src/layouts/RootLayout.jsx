@@ -12,7 +12,8 @@ const RootLayout = () => {
 
   return (
     <>
-      <FeedSpinner />
+      {/* <FeedSpinner /> */}
+
       <div id="main-wrapper">
         <div
           className="page-wrapper"
