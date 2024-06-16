@@ -5,6 +5,8 @@ const Logo = ({ customWidth, ...props }) => {
   const appTheme = useSelector((state) => state.ui.appTheme);
   const logoWidth = customWidth ? `w-${customWidth}` : ``;
   const combined = `img-fluid ${logoWidth}`.trim("");
+
+  console.log("appTheme in navbar", appTheme);
   return (
     <img
       src={appTheme === "dark" ? darkLogo : lightLogo}

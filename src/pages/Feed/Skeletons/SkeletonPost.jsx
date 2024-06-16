@@ -4,25 +4,20 @@ import Card from "../../../components/Card";
 const SkeletonPost = () => {
   return (
     <Card>
-      <div className="d-flex align-items-center gap-3">
-        <img
-          src="./assets/images/profile/user-1.jpg"
-          alt=""
-          className="rounded-circle"
-          width="40"
-          height="40"
-        />
+      <div className="d-flex align-items-center gap-3 h5 placeholder-glow">
         <span
-          className="placeholder placeholder-glow rounded-circle col-7"
+          className="placeholder rounded-circle col-7"
           style={{ height: "40px", width: "40px" }}
         ></span>
-        <h6 className="fw-semibold mb-0 fs-4">Skeleton Anderson</h6>
-
-        <span className="fs-2">
-          <span className="p-1 text-bg-light rounded-circle d-inline-block"></span>{" "}
-          15 min ago
-        </span>
+        <div className="placeholder-glow">
+          <span className="placeholder col-3"></span>
+          <span className="placeholder col-1"></span>
+        </div>
       </div>
+      <div className="mx-5">
+        <h3>Article Title</h3>
+      </div>
+
       <div className="d-flex align-items-center my-3">
         <div className="d-flex align-items-center gap-2">
           <a

@@ -52,7 +52,7 @@ const CreatePost = () => {
         <PostControls onShow={showCreate} />
       </Card>
       {value && (
-        <Modal title="Create Post" onClose={() => toggleValue(false)}>
+        <Modal title="Create Article" onClose={() => toggleValue(false)}>
           <hr />
           <div className="d-flex align-items-center gap-3 mb-3">
             <Avatar

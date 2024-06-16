@@ -5,14 +5,19 @@ import { useDispatch, useSelector } from "react-redux";
 const useTheme = () => {
   const dispatch = useDispatch();
   const localStorageTheme = getLocalStorage("appTheme");
-
+  const appTheme = useSelector((state) => state.ui.appTheme);
   const setDarkTheme = useCallback(() => {
     dispatch(uiActions.changeTheme("dark"));
   }, [dispatch]);
 
   const setAppTheme = useCallback(() => {
-    if (localStorageTheme === "dark") setDarkTheme();
-  }, [localStorageTheme, setDarkTheme]);
+    if (
+      localStorageTheme === "dark" ||
+      localStorageTheme === null ||
+      appTheme === "dark"
+    )
+      setDarkTheme();
+  }, [localStorageTheme, setDarkTheme, appTheme]);
 
   return [setAppTheme];
 };

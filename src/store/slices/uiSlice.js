@@ -8,7 +8,7 @@ const deviceTheme = getDeviceTheme();
 const uiSlice = createSlice({
   name: "ui",
   initialState: {
-    appTheme: currentTheme ? currentTheme : deviceTheme(),
+    appTheme: currentTheme ? currentTheme : deviceTheme,
   },
   reducers: {
     changeTheme(state, action) {
