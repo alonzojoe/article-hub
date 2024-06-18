@@ -243,12 +243,21 @@ a {
 
 .feed-spinner-container {
   z-index: 1999 !important;
-  margin-top: 200px !important;
+  margin-top: 199px;
 }
 
 .feed-spinner {
   border-radius: 50%;
   background: #ffffff;
+  animation: goesDown .3s ease-in forwards;
 }
 
-
+@keyframes goesDown {
+  0% {
+    transform: translateY(-150px);
+ 
+  }
+  100% {
+    transform: translateY(0);
+  }
+}

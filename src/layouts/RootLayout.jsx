@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
 import { Outlet } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import useTheme from "../hooks/useTheme";
