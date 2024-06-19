@@ -6,7 +6,7 @@ const useApi = ({ url, method, onSuccess, onFailure }) => {
 
   const callApi = useCallback(
     async (payload = {}) => {
-      setIsLoading(false);
+      setIsLoading(true);
       setError(null);
 
       try {
@@ -15,7 +15,9 @@ const useApi = ({ url, method, onSuccess, onFailure }) => {
           method,
         };
 
-        method == "get" ? (config.params = payload) : (config.data = payload);
+        method.toLowerCase() == "get"
+          ? (config.params = payload)
+          : (config.data = payload);
 
         const response = await api(config);
         if (onSuccess) {
@@ -26,6 +28,8 @@ const useApi = ({ url, method, onSuccess, onFailure }) => {
         if (onFailure) {
           onFailure(error);
         }
+      } finally {
+        setIsLoading(false);
       }
     },
     [url, method, onSuccess, onFailure]
