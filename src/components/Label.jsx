@@ -1,8 +1,10 @@
 import React from "react";
 
-const Label = ({ children, ...props }) => {
+const Label = ({ className, children, ...props }) => {
+  const defaultClass = "form-label";
+  const combinedClass = `${defaultClass} ${className || ""}`.trim();
   return (
-    <label {...props} className="form-label">
+    <label {...props} className={combinedClass}>
       {children}
     </label>
   );

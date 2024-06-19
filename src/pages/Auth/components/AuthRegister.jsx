@@ -1,35 +1,100 @@
+import { useState } from "react";
 import Label from "../../../components/Label";
 import Input from "../../../components/Input";
 import Button from "../../../components/Button";
+import api from "../../../services/api";
+
+const registryState = {
+  name: "",
+  email: "",
+  password: "",
+  confirm: "",
+};
 
 const AuthRegister = ({ changeSection }) => {
+  const [formData, setFormData] = useState(registryState);
+  console.log("auth register is reevaluted");
+  const changeHandler = (event) => {
+    const { name, value } = event.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const singupHandler = async (e) => {
+    e.preventDefault();
+    console.log("fomr submitted");
+    try {
+      await api.post("/auth/register", {});
+    } catch (error) {
+      console.log("e", error.response.data);
+      console.log(
+        Object.values(error.response.data.errors).forEach((error) =>
+          console.log(error[0])
+        )
+      );
+    }
+  };
+
   return (
     <>
       <h3 className="text-center mb-3">Account Registration</h3>
+      {JSON.stringify(formData)}
       <form>
         <div className="mb-3">
-          <Label htmlFor="remail" className="form-label">
-            Name
-          </Label>
-          <Input type="email" id="remail" />
+          <div className="form-group">
+            <Label htmlFor="rname" className={`form-label text-danger`}>
+              Name
+            </Label>
+            <Input
+              type="text"
+              value={formData.name}
+              onChange={changeHandler}
+              className="is-invalid"
+              name="name"
+              id="rname"
+            />
+          </div>
         </div>
         <div className="mb-4">
           <Label htmlFor="remail" className="form-label">
             Email
           </Label>
-          <Input type="email" id="remail" />
+          <Input
+            type="email"
+            value={formData.email}
+            onChange={changeHandler}
+            id="remail"
+            name="email"
+            required
+          />
         </div>
         <div className="mb-4">
           <Label htmlFor="rpassword" className="form-label">
             Password
           </Label>
-          <Input type="rpassword" id="password" />
+          <Input
+            type="password"
+            value={formData.password}
+            onChange={changeHandler}
+            id="rpassword"
+            name="password"
+            required
+          />
         </div>
         <div className="mb-4">
           <Label htmlFor="rconf" className="form-label">
-            Password
+            Confirm Password
           </Label>
-          <Input type="rconf" id="password" />
+          <Input
+            type="password"
+            value={formData.confirm}
+            onChange={changeHandler}
+            id="rconf"
+            name="confirm"
+            required
+          />
         </div>
         <div className="d-flex align-items-center justify-content-end mb-4">
           <a
@@ -39,7 +104,9 @@ const AuthRegister = ({ changeSection }) => {
             Proceed to Login
           </a>
         </div>
-        <Button className="btn-primary w-100 mb-4">Sign Up</Button>
+        <Button className="btn-primary w-100 mb-4" onClick={singupHandler}>
+          Sign Up
+        </Button>
       </form>
     </>
   );
