@@ -3,7 +3,8 @@ import Label from "../../../components/Label";
 import Input from "../../../components/Input";
 import Button from "../../../components/Button";
 import api from "../../../services/api";
-
+import { toast } from "react-hot-toast";
+import useApi from "../../../hooks/useApi";
 const registryState = {
   name: "",
   email: "",
@@ -13,13 +14,32 @@ const registryState = {
 
 const AuthRegister = ({ changeSection }) => {
   const [formData, setFormData] = useState(registryState);
-  console.log("auth register is reevaluted");
+
+  const onSuccess = useCallback(
+    (data) => {
+      toast.success("Account Created Successfully! Please Proceed to login.");
+      setFormData(registryState);
+      changeSection(false);
+    },
+    [changeSection]
+  );
+
+  const onFailure = useCallback((error) => {
+    toast.error(`${error.response?.data?.message || error.message}`);
+  }, []);
+
+  const { isLoading, error, callApi } = useApi({
+    url: "/auth/register",
+    method: "POST",
+    onSuccess,
+    onFailure,
+  });
 
   const changeHandler = useCallback((event) => {
     const { name, value } = event.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   }, []);
 
@@ -27,20 +47,9 @@ const AuthRegister = ({ changeSection }) => {
     async (e) => {
       e.preventDefault();
       console.log("fomr submitted");
-      try {
-        await api.post("/auth/register", {
-          ...formData,
-        });
-      } catch (error) {
-        console.log("e", error.response.data);
-        console.log(
-          Object.values(error.response.data.errors).forEach((error) =>
-            console.log(error[0])
-          )
-        );
-      }
+      await callApi(formData);
     },
-    [formData]
+    [formData, callApi]
   );
 
   return (
@@ -110,7 +119,9 @@ const AuthRegister = ({ changeSection }) => {
             Proceed to Login
           </a>
         </div>
-        <Button className="btn-primary w-100 mb-4">Sign Up</Button>
+        <Button className="btn-primary w-100 mb-4" disabled={isLoading}>
+          {isLoading ? "Singing Up..." : "Sign Up"}
+        </Button>
       </form>
     </>
   );
