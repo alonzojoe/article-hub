@@ -1,12 +1,18 @@
+import { useEffect } from "react";
 import Logo from "../../components/Logo";
 import AuthContainer from "./components/AuthContainer";
 import Card from "../../components/Card";
 import AuthLogin from "./components/AuthLogin";
 import AuthRegister from "./components/AuthRegister";
 import useToggle from "../../hooks/useToggle";
+import useTheme from "../../hooks/useTheme";
 import { Toaster } from "react-hot-toast";
 const Auth = () => {
   const [value, toggle] = useToggle(false);
+  const [setAppTheme] = useTheme();
+  useEffect(() => {
+    setAppTheme();
+  }, [setAppTheme]);
 
   const changeSection = async (params) => {
     toggle(params);
