@@ -10,6 +10,14 @@ import { useDispatch } from "react-redux";
 import { setUser } from "../store/slices/authSlice";
 const ProtectedRoutes = () => {
   const dispatch = useDispatch();
+  const auth = Cookie.get(import.meta.env.VITE_AUTH_KEY);
+  useEffect(() => {
+    if (auth) {
+      setupTokenInterceptors(auth);
+    }
+    console.log("auth", auth);
+  });
+
   const [setAppTheme] = useTheme();
   const authUser = getLocalStorage(import.meta.env.VITE_AUTH_USER);
   useEffect(() => {
@@ -18,14 +26,6 @@ const ProtectedRoutes = () => {
 
     dispatch(setUser({ user: userData }));
   }, [setAppTheme, authUser, dispatch]);
-
-  const auth = Cookie.get(import.meta.env.VITE_AUTH_KEY);
-  useEffect(() => {
-    if (auth) {
-      setupTokenInterceptors(auth);
-    }
-  }, [auth]);
-  console.log("auth", auth);
 
   return auth ? <Outlet /> : <Navigate to="/login" />;
 };

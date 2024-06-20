@@ -249,13 +249,12 @@ a {
 .feed-spinner {
   border-radius: 50%;
   background: #ffffff;
-  animation: goesDown .3s ease-in forwards;
+  animation: goesDown 0.3s ease-in forwards;
 }
 
 @keyframes goesDown {
   0% {
-    transform: translateY(-150px);
- 
+    transform: translateY(-100px);
   }
   100% {
     transform: translateY(0);
