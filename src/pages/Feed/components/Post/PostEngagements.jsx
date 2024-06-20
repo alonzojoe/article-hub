@@ -1,10 +1,14 @@
-const PostEngagements = ({ post }) => {
+const PostEngagements = ({ post, toggle, onSelect }) => {
+  const viewPost = () => {
+    onSelect();
+    toggle(true);
+  };
+
   return (
     <div className="d-flex align-items-center my-3">
       <div className="d-flex align-items-center gap-2">
         <a
           className="d-flex align-items-center justify-content-center text-bg-primary p-2 fs-4 rounded-circle"
-          href="#"
           data-bs-toggle="tooltip"
           data-bs-placement="top"
           data-bs-title="Like"
@@ -16,10 +20,10 @@ const PostEngagements = ({ post }) => {
       <div className="d-flex align-items-center gap-2 ms-4">
         <a
           className="d-flex align-items-center justify-content-center text-bg-secondary p-2 fs-4 rounded-circle"
-          href="#"
           data-bs-toggle="tooltip"
           data-bs-placement="top"
           data-bs-title="Comment"
+          onClick={viewPost}
         >
           <i className="ti ti-message-2"></i>
         </a>
@@ -27,7 +31,6 @@ const PostEngagements = ({ post }) => {
       </div>
       <a
         className="text-dark ms-auto d-flex align-items-center justify-content-center bg-transparent p-2 fs-4 rounded-circle"
-        href="#"
         data-bs-toggle="tooltip"
         data-bs-placement="top"
         data-bs-title="Share"

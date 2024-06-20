@@ -44,6 +44,7 @@ const CreatePost = () => {
               placeholder="Write your article, Joe.."
               id="postText"
               onFocus={showCreate}
+              style={{ resize: "none" }}
             ></Textarea>
             <Label htmlFor="postText">Write your article, Joe...</Label>
           </div>
