@@ -1,7 +1,11 @@
 import { uiActions } from "../../../store/slices/uiSlice";
 import { useDispatch, useSelector } from "react-redux";
+import Cookie from "cookiejs";
 import Avatar from "../../../components/Avatar";
+import { useNavigate } from "react-router-dom";
+import api from "../../../services/api";
 const AccountDetails = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const appTheme = useSelector((state) => state.ui.appTheme);
 
@@ -13,6 +17,18 @@ const AccountDetails = () => {
   const themeIcon = `ti dark-color ${
     appTheme === "dark" ? "ti-moon-filled" : "ti-sun-filled"
   }`;
+
+  const logoutHandler = async () => {
+    try {
+      await api.post("/auth/logout");
+    } catch (error) {
+      console.log(error);
+    } finally {
+      Cookie.remove(`${import.meta.env.VITE_AUTH_KEY}`);
+      localStorage.removeItem(import.meta.env.VITE_AUTH_USER);
+      navigate("/login");
+    }
+  };
 
   return (
     <div
@@ -96,7 +112,10 @@ const AccountDetails = () => {
                   </div>
                 </div>
                 <div className="d-grid py-4 px-7 pt-8">
-                  <button className="btn btn-sm btn-outline-danger">
+                  <button
+                    className="btn btn-sm btn-outline-danger"
+                    onClick={logoutHandler}
+                  >
                     Log Out
                   </button>
                 </div>

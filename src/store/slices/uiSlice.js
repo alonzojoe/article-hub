@@ -12,7 +12,7 @@ const uiSlice = createSlice({
   },
   reducers: {
     changeTheme(state, action) {
-      console.log("pay;", action.payload);
+      // console.log("pay;", action.payload);
       state.appTheme = action.payload;
       setLocalStorage("appTheme", action.payload);
 
