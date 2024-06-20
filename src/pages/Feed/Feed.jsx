@@ -37,7 +37,7 @@ const Feed = () => {
         {post.isLoading ? (
           <SkeletonPosts />
         ) : (
-          post.items.map((item) => <Post key={item} />)
+          post.items.map((post) => <Post key={post.id} post={post} />)
         )}
       </FeedContainer>
     </>

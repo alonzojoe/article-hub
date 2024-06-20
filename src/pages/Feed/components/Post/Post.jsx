@@ -2,12 +2,12 @@ import Card from "../../../../components/Card";
 import PostHeader from "./PostHeader";
 import PostBody from "./PostBody";
 import PostEngagements from "./PostEngagements";
-const Post = () => {
+const Post = ({ post }) => {
   return (
     <Card>
-      <PostHeader />
-      <PostBody />
-      <PostEngagements />
+      <PostHeader post={post} />
+      <PostBody post={post} />
+      <PostEngagements post={post} />
     </Card>
   );
 };
