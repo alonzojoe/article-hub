@@ -7,20 +7,19 @@ import useApi from "../../../hooks/useApi";
 import Cookie from "cookiejs";
 import { useNavigate } from "react-router-dom";
 import { setLocalStorage } from "../../../utils/storageActions";
-import { setUser } from "../../../store/slices/authSlice";
-import { useDispatch } from "react-redux";
+import { encryptData } from "../../../utils/enc";
+
 const AuthLogin = ({ changeSection }) => {
   const email = useRef(null);
   const password = useRef(null);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const onSuccess = (data) => {
     console.log("data success", data);
     const token = data.authorization.token;
     Cookie.set(`${import.meta.env.VITE_AUTH_KEY}`, token, { expires: 365 });
-    setLocalStorage(import.meta.env.VITE_AUTH_KEY, token);
-    dispatch(setUser({ user: data.user }));
+    const encryptUser = encryptData(JSON.stringify(data.user));
+    setLocalStorage(import.meta.env.VITE_AUTH_USER, encryptUser);
     email.current.value = "";
     password.current.value = "";
     navigate("/");

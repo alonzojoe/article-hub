@@ -1,6 +1,11 @@
 import { useState, useCallback } from "react";
 import api from "../services/api";
-const useApi = ({ url, method, onSuccess: () => {}, onFailure: () => {} }) => {
+const useApi = ({
+  url,
+  method,
+  onSuccess = () => {},
+  onFailure = () => {},
+}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
