@@ -9,8 +9,11 @@ import Modal from "../../../../components/Modal";
 import Avatar from "../../../../components/Avatar";
 import profile from "../../../../assets/images/avatars/user-5.jpg";
 import useToggle from "../../../../hooks/useToggle";
+import useFileUpload from "../../../../hooks/useFileUpload";
 const CreatePost = () => {
   const [value, toggleValue] = useToggle(false);
+  const [selectedFile, previewImg, handleFileUpload, clearUpload] =
+    useFileUpload();
   const postTitle = useRef();
 
   const setPostTitleRef = useCallback((node) => {
@@ -23,6 +26,16 @@ const CreatePost = () => {
   const showCreate = () => {
     console.log("create post has been rendered");
     toggleValue(true);
+  };
+
+  const inputFileRef = useRef();
+  const selectFile = () => {
+    inputFileRef.current.click();
+  };
+
+  const onClose = () => {
+    clearUpload();
+    toggleValue(false);
   };
 
   return (
@@ -53,16 +66,35 @@ const CreatePost = () => {
         <PostControls onShow={showCreate} />
       </Card>
       {value && (
-        <Modal title="Create Article" onClose={() => toggleValue(false)}>
+        <Modal title="Create Article" onClose={onClose}>
           <hr />
-          <div className="d-flex align-items-center gap-3 mb-3">
-            <Avatar
-              className="rounded-circle"
-              width="40"
-              height="40"
-              alt="user"
-            />
-            <h6 className="fw-semibold mb-0 fs-4">Joe</h6>
+          <div className="d-flex justify-content-between align-items-center gap-3 mb-3">
+            <div className="d-flex gap-3  align-items-center">
+              <Avatar
+                className="rounded-circle"
+                width="40"
+                height="40"
+                alt="user"
+              />
+              <h6 className="fw-semibold mb-0 fs-4">Joe</h6>
+            </div>
+
+            <div className="hstack gap-6">
+              <a
+                className="p-0 hstack justify-content-center round-32 btn btn-primary rounded-circle"
+                onClick={selectFile}
+              >
+                <i className="ti ti-photo"></i>
+                <input
+                  className="d-none"
+                  type="file"
+                  ref={inputFileRef}
+                  onChange={handleFileUpload}
+                  accept=".jpg, .jpeg, .png, .gif, .svg"
+                />
+              </a>
+              <a className="text-dark link-primary">Photo</a>
+            </div>
           </div>
           <div className="mb-3">
             <Input
@@ -79,6 +111,14 @@ const CreatePost = () => {
             ></Textarea>
             {/* <Label htmlFor="postText">Share your article...</Label> */}
           </div>
+          {previewImg && (
+            <img
+              src={previewImg}
+              alt=""
+              className="img-fluid rounded-4 w-100 mb-3 object-fit-cover"
+              style={{ height: "360px" }}
+            />
+          )}
           <Button className="btn-primary w-100">Post</Button>
         </Modal>
       )}
