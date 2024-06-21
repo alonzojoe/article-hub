@@ -34,7 +34,7 @@ const SkeletonPost = () => {
         </div>
         <div className="d-flex align-items-center gap-2 ms-4  placeholder-glow">
           <span
-            className="placeholder rounded-circle col-7 bg-warning"
+            className="placeholder rounded-circle col-7 bg-info"
             style={{ height: "31px", width: "31px" }}
           ></span>
           <span className="placeholder rounded col-6"></span>
