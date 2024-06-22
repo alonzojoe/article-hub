@@ -9,6 +9,7 @@ import { getLocalStorage } from "../utils/storageActions";
 import { useDispatch } from "react-redux";
 import { setUser } from "../store/slices/authSlice";
 import useApi from "../hooks/useApi";
+
 const ProtectedRoutes = () => {
   const dispatch = useDispatch();
 

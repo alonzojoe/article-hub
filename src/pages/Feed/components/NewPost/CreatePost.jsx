@@ -93,7 +93,6 @@ const CreatePost = () => {
                   accept=".jpg, .jpeg, .png, .gif, .svg"
                 />
               </a>
-              <a className="text-dark link-primary">Photo</a>
             </div>
           </div>
           <div className="mb-3">

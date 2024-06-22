@@ -1,10 +1,13 @@
 import user from "../../../../assets/images/avatars/react.png";
+import defaultProfile from "../../../../assets/images/avatars/user-default.jpg";
 const PostHeader = ({ post }) => {
   console.log("postheader", post);
+
+  const postAvatar = post?.user?.profile_url || defaultProfile;
   return (
     <div className="d-flex align-items-center gap-3">
       <img
-        src={user}
+        src={postAvatar}
         alt=""
         className="rounded-circle"
         width="40"
