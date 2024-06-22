@@ -17,7 +17,7 @@ const ProtectedRoutes = () => {
     url: "/auth/session",
     method: "GET",
     onSuccess: (data) => {},
-    onFailure: (error) => {},
+    onFailure: (error) => Cookie.remove(`${import.meta.env.VITE_AUTH_KEY}`),
   });
 
   const auth = Cookie.get(import.meta.env.VITE_AUTH_KEY);
