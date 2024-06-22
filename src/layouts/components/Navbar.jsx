@@ -11,6 +11,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const refreshData = async () => {
     navigate("/");
+    window.scrollTo({ top: 0, behavior: "smooth" });
     dispatch(fetchPosts());
   };
   return (
