@@ -1,4 +1,4 @@
-import { useRef, useCallback } from "react";
+import { useRef, useCallback, useState } from "react";
 import Card from "../../../../components/Card";
 import Textarea from "../../../../components/Textarea";
 import Label from "../../../../components/Label";
@@ -12,10 +12,11 @@ import useToggle from "../../../../hooks/useToggle";
 import useFileUpload from "../../../../hooks/useFileUpload";
 import { useSelector, useDispatch } from "react-redux";
 import toast from "react-hot-toast";
-import useApi from "../../../../hooks/useApi";
 import { fetchPosts } from "../../../../store/thunks/postsThunks";
+import api from "../../../../services/api";
 const CreatePost = () => {
   const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState();
   const { user } = useSelector((state) => state.auth);
   const [value, toggleValue] = useToggle(false);
   const [selectedFile, previewImg, handleFileUpload, clearUpload] =
@@ -46,31 +47,30 @@ const CreatePost = () => {
     toggleValue(false);
   };
 
-  const { isLoading, error, callApi } = useApi({
-    url: "/article/create",
-    method: "POST",
-    onSuccess,
-    onFailure,
-  });
-
   const submitHandler = async (e) => {
     e.preventDefault();
-    await callApi({
-      title: titleRef.current.value,
-      content: contentRef.current.value,
-      photo: selectedFile,
-      user_id: user.id,
-    });
+    setIsLoading(true);
+    try {
+      const formData = new FormData();
+      formData.append("title", titleRef.current.value);
+      formData.append("content", contentRef.current.value);
+      formData.append("photo", selectedFile);
+      formData.append("user_id", user.id);
+      await api.post("/article/create", formData, {
+        "Content-Type": "multipart/form-data",
+      });
+      succeed();
+    } catch (error) {
+      toast.error("Snap!" + error?.response?.data?.message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  function onSuccess(data) {
+  function succeed(data) {
     onClose();
     dispatch(fetchPosts());
     toast.success("Article posted successfully.");
-  }
-
-  function onFailure(error) {
-    toast.error("Snap :( An error occured." + error?.response?.data?.message);
   }
 
   return (
