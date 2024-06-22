@@ -21,13 +21,13 @@
 .close-btn {
   cursor: pointer;
   font-size: 20px;
-  top: -1px;
+  top: 4px;
   right: 10px;
 }
 
 .close-btn i:hover {
-  color: red;
-  transform: scale(1.2);
+  color: #FA4D5E;
+  transform: scale(2.5);
   transition: transform 0.4s ease-in;
 }
 

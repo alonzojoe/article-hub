@@ -15,7 +15,7 @@ const ModalOverlay = ({ children, title, onClose }) => {
           className={`${classes["close-btn"]} position-absolute cst-close z-3`}
           onClick={onClose}
         >
-          <i className="fa fa-times" aria-hidden="true"></i>
+          <i className="ti ti-circle-x fs-7"></i>
         </span>
         <div className="position-relative border-bottom px-2 py-2 m-2 mt-2">
           <div className="text-dark h4 px-2 fw-bold text-center">{title}</div>
