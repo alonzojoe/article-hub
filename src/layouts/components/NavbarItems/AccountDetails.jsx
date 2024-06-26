@@ -8,7 +8,7 @@ const AccountDetails = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const appTheme = useSelector((state) => state.ui.appTheme);
-
+  const { user } = useSelector((state) => state.auth);
   const toggleTheme = () => {
     const reverseTheme = appTheme === "dark" ? "light" : "dark";
     dispatch(uiActions.changeTheme(reverseTheme));
@@ -55,7 +55,7 @@ const AccountDetails = () => {
           </li>
           <li className="nav-item">
             <a className="nav-link" href="#">
-              <h5 className="mt-2 fw-semibold">Joe</h5>
+              <h5 className="mt-2 fw-semibold">{user?.name}</h5>
             </a>
           </li>
           <li className="nav-item dropdown">
@@ -104,10 +104,9 @@ const AccountDetails = () => {
                     alt="user"
                   />
                   <div className="ms-3">
-                    <h5 className="mb-1 fs-3">Joenell Alonzo</h5>
-                    <span className="mb-1 d-block text-dark">Dev</span>
+                    <h5 className="mb-1 fs-3">{user?.name}</h5>
                     <p className="mb-0 d-flex text-dark align-items-center fs-2 gap-1">
-                      <i className="ti ti-mail fs-3"></i> ewqe@email.com
+                      <i className="ti ti-mail fs-3"></i> {user?.email}
                     </p>
                   </div>
                 </div>

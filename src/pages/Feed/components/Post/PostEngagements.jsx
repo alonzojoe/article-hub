@@ -11,7 +11,6 @@ const PostEngagements = ({ post, toggle: toggleTrue, onSelect }) => {
     toggleTrue(true);
   };
 
-  const [value, toggle] = useToggle();
   const { user } = useSelector((state) => state.auth);
 
   const upVote = async () => {
