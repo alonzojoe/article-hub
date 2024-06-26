@@ -54,7 +54,7 @@ const AccountDetails = () => {
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="#">
+            <a className="nav-link">
               <h5 className="mt-2 fw-semibold">{user?.name}</h5>
             </a>
           </li>
