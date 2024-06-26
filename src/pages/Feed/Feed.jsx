@@ -10,10 +10,10 @@ import FeedSpinner from "../../components/FeedSpinner";
 import Modal from "../../components/Modal";
 import useToggle from "../../hooks/useToggle";
 const Feed = () => {
+  const post = useSelector((state) => state.posts);
   const dispatch = useDispatch();
   const [selectedPost, setSelectedPost] = useState(null);
   const [value, toggle] = useToggle(false);
-  const post = useSelector((state) => state.posts);
   const viewPostTitle = `${selectedPost?.user?.name}'s Post`;
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -43,9 +43,7 @@ const Feed = () => {
       <FeedContainer>
         <CreatePost />
         {errorMessage}
-        {post.isLoading ? (
-          <SkeletonPosts />
-        ) : (
+        {!post.isLoading ? (
           post.items.map((post) => (
             <Post
               key={post.id}
@@ -54,6 +52,8 @@ const Feed = () => {
               onSelect={() => setSelectedPost(post)}
             />
           ))
+        ) : (
+          <SkeletonPosts />
         )}
       </FeedContainer>
     </>

@@ -15,12 +15,19 @@ const SkeletonPost = () => {
       <h3 className="mt-3  placeholder-glow">
         <span className="placeholder rounded col-6"></span>
       </h3>
-      <div className="mt-0 placeholder-glow">
+      <div className="mt-0 placeholder-glow mb-2">
         <span className="placeholder rounded col-12"></span>
         <span className="placeholder rounded col-12"></span>
         <span className="placeholder rounded col-12"></span>
         <span className="placeholder rounded col-11"></span>
         <span className="col-1">.......</span>
+      </div>
+
+      <div className="mt-0 placeholder-glow">
+        <span
+          className="placeholder rounded col-12"
+          style={{ height: "150px" }}
+        ></span>
       </div>
 
       <div className="d-flex align-items-center my-3">
