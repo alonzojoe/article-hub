@@ -4,6 +4,7 @@ import Cookie from "cookiejs";
 import Avatar from "../../../components/Avatar";
 import { useNavigate } from "react-router-dom";
 import api from "../../../services/api";
+import { encryptData } from "../../../utils/enc";
 const AccountDetails = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -30,6 +31,12 @@ const AccountDetails = () => {
     }
   };
 
+  const viewProfile = (id) => {
+    const user = encodeURIComponent(encryptData(id));
+    console.log(user);
+    navigate(`/profile/${user}`);
+  };
+
   return (
     <div
       className="collapse navbar-collapse justify-content-end"
@@ -54,7 +61,7 @@ const AccountDetails = () => {
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link">
+            <a className="nav-link" onClick={() => viewProfile(user?.id)}>
               <h5 className="mt-2 fw-semibold">{user?.name}</h5>
             </a>
           </li>

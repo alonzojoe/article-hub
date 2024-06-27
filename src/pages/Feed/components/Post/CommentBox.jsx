@@ -6,16 +6,16 @@ const CommentBox = () => {
       <Avatar
         alt="user-logo"
         className="rounded-circle"
-        width="33"
-        height="33"
+        width="35"
+        height="35"
       />
       <Input
         type="text"
-        className="form-control py-8"
+        className="form-control-sm py-8"
         id="comment-box"
         placeholder="Comment"
       />
-      <button className="btn btn-primary">Comment</button>
+      <button className="btn btn-primary btn">Comment</button>
     </div>
   );
 };

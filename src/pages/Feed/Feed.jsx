@@ -32,6 +32,11 @@ const Feed = () => {
     );
   }
 
+  const viewComments = (id) => {
+    console.log("view comment", id);
+    toggle(true);
+  };
+
   return (
     <>
       {post.isLoading && <FeedSpinner />}
@@ -47,7 +52,7 @@ const Feed = () => {
           post.items.map((post) => (
             <Post
               key={post.id}
-              toggle={toggle}
+              toggle={() => viewComments(post.id)}
               post={post}
               onSelect={() => setSelectedPost(post)}
             />

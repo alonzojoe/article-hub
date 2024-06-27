@@ -3,7 +3,7 @@ import CommentBox from "./CommentBox";
 const CommentSection = () => {
   return (
     <>
-      {/* <PostComments /> */}
+      <PostComments />
       <CommentBox />
     </>
   );

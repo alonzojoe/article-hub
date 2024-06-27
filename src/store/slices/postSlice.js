@@ -7,6 +7,8 @@ const postsSlice = createSlice({
     items: [],
     isLoading: false,
     error: null,
+    comments: [],
+    isLoadingComments: false,
   },
   extraReducers(builder) {
     builder

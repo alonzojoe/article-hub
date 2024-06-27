@@ -14,7 +14,7 @@ const PostEngagements = ({ post, toggle: toggleTrue, onSelect }) => {
 
   const upVote = async () => {
     try {
-      api.post("/cast/vote", {
+      await api.post("/cast/vote", {
         article_id: post.id,
         user_id: user.id,
       });
