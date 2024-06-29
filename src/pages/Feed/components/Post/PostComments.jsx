@@ -9,7 +9,7 @@ const PostComments = (props) => {
     <div className="position-relative">
       {post.comments &&
         post.comments.map((comment) => (
-          <div className="p-4 rounded-2 text-bg-light mb-3">
+          <div className="p-4 rounded-2 text-bg-light mb-3" key={comment.id}>
             <div className="d-flex align-items-center gap-3">
               <img
                 src={userAvatar}
