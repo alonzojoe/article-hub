@@ -1,5 +1,5 @@
 import Card from "../../../components/Card";
-
+import SkeletonComments from "./SkeletonComments";
 const SkeletonPost = () => {
   return (
     <Card>
@@ -47,6 +47,7 @@ const SkeletonPost = () => {
           <span className="placeholder rounded col-6"></span>
         </div>
       </div>
+      <SkeletonComments />
     </Card>
   );
 };

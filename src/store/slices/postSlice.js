@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchPosts } from "../thunks/postsThunks";
+import { fetchPosts, getPost } from "../thunks/postsThunks";
 
 const postsSlice = createSlice({
   name: "posts",
@@ -7,8 +7,9 @@ const postsSlice = createSlice({
     items: [],
     isLoading: false,
     error: null,
-    comments: [],
-    isLoadingComments: false,
+    post: {},
+    postLoader: false,
+    postError: null,
   },
   extraReducers(builder) {
     builder
@@ -23,6 +24,17 @@ const postsSlice = createSlice({
       .addCase(fetchPosts.rejected, (state, actions) => {
         state.isLoading = false;
         state.error = actions?.error?.message || "error";
+      })
+      .addCase(getPost.pending, (state) => {
+        state.postLoader = true;
+      })
+      .addCase(getPost.fulfilled, (state, actions) => {
+        state.postLoader = false;
+        state.post = actions.payload;
+      })
+      .addCase(getPost.rejected, (state, actions) => {
+        state.postLoader = false;
+        state.postError = state.error = actions?.error?.message || "error";
       });
   },
 });

@@ -10,3 +10,15 @@ export const fetchPosts = createAsyncThunk("fetchPosts", async () => {
     };
   });
 });
+
+export const getPost = createAsyncThunk("getPost", async (id) => {
+  const response = await api.get(`/article/${id}`);
+  console.log("getpost", response.data.data);
+
+  const post = {
+    ...response.data.data,
+    created_at: formatPostDate(response.data.data.created_at),
+  };
+
+  return post;
+});

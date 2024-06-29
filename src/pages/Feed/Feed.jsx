@@ -2,15 +2,19 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import FeedContainer from "./components/FeedContainer";
 import CreatePost from "./components/NewPost/CreatePost";
-const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+import SelectedPost from "./components/Post/SelectedPost";
 import Post from "./components/Post/Post";
 import SkeletonPosts from "./Skeletons/SkeletonPosts";
 import { fetchPosts } from "../../store/thunks/postsThunks";
 import FeedSpinner from "../../components/FeedSpinner";
 import Modal from "../../components/Modal";
 import useToggle from "../../hooks/useToggle";
+import SkeletonPost from "./Skeletons/SkeletonPost";
+import SkeletonComments from "./Skeletons/SkeletonComments";
 const Feed = () => {
-  const post = useSelector((state) => state.posts);
+  const { items, isLoading, error, post, postLoader, postError } = useSelector(
+    (state) => state.posts
+  );
   const dispatch = useDispatch();
   const [selectedPost, setSelectedPost] = useState(null);
   const [value, toggle] = useToggle(false);
@@ -23,8 +27,8 @@ const Feed = () => {
   }, [dispatch]);
 
   let errorMessage;
-  if (post.error) {
-    console.log(post.error);
+  if (error) {
+    console.log(error);
     errorMessage = (
       <p className="text-center text-danger">
         An error occured while fetching data.
@@ -37,19 +41,25 @@ const Feed = () => {
     toggle(true);
   };
 
+  const SkelPost = (
+    <>
+      <SkeletonPost />
+    </>
+  );
+
   return (
     <>
-      {post.isLoading && <FeedSpinner />}
+      {isLoading && <FeedSpinner />}
       {value && (
         <Modal title={viewPostTitle} onClose={() => toggle(false)}>
-          <Post post={selectedPost} />
+          {!postLoader ? SkelPost : <SelectedPost post={selectedPost} />}
         </Modal>
       )}
       <FeedContainer>
         <CreatePost />
         {errorMessage}
-        {!post.isLoading ? (
-          post.items.map((post) => (
+        {!isLoading ? (
+          items.map((post) => (
             <Post
               key={post.id}
               toggle={() => viewComments(post.id)}

@@ -1,13 +1,17 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
+import { getPost } from "../../../../store/thunks/postsThunks";
 import api from "../../../../services/api";
 import toast from "react-hot-toast";
-const PostEngagements = ({ post, toggle: toggleTrue, onSelect }) => {
+
+const PostEngagements = ({ post, toggle: toggleTrue, onSelect, selected }) => {
+  const dispatch = useDispatch();
   const [vote, setVote] = useState(false);
   const [currentCount, setCurrentCount] = useState(post.votes.length);
-  const viewPost = () => {
+  const viewPost = async () => {
     onSelect();
     toggleTrue(true);
+    dispatch(getPost(post.id));
   };
 
   const { user } = useSelector((state) => state.auth);
@@ -46,18 +50,20 @@ const PostEngagements = ({ post, toggle: toggleTrue, onSelect }) => {
         </a>
         <span className="text-dark fw-semibold">{currentCount}</span>
       </div>
-      <div className="d-flex align-items-center gap-2 ms-4">
-        <a
-          className="d-flex align-items-center justify-content-center text-bg-secondary p-2 fs-4 rounded-circle"
-          data-bs-toggle="tooltip"
-          data-bs-placement="top"
-          data-bs-title="Comment"
-          onClick={viewPost}
-        >
-          <i className="bx bx-message-alt-detail"></i>
-        </a>
-        <span className="text-dark fw-semibold">{post.comments.length}</span>
-      </div>
+      {!selected && (
+        <div className="d-flex align-items-center gap-2 ms-4">
+          <a
+            className="d-flex align-items-center justify-content-center text-bg-secondary p-2 fs-4 rounded-circle"
+            data-bs-toggle="tooltip"
+            data-bs-placement="top"
+            data-bs-title="Comment"
+            onClick={viewPost}
+          >
+            <i className="bx bx-message-alt-detail"></i>
+          </a>
+          <span className="text-dark fw-semibold">{post.comments.length}</span>
+        </div>
+      )}
       <a
         className="text-dark ms-auto d-flex align-items-center justify-content-center bg-transparent p-2 fs-4 rounded-circle"
         data-bs-toggle="tooltip"
