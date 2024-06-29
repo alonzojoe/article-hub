@@ -18,6 +18,10 @@ export const getPost = createAsyncThunk("getPost", async (id) => {
   const post = {
     ...response.data.data,
     created_at: formatPostDate(response.data.data.created_at),
+    comments:
+      response.data.data.comments.map((data) => {
+        return { ...data, created_at: formatPostDate(data.created_at) };
+      }) || [],
   };
 
   return post;

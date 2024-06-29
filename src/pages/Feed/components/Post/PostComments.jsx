@@ -1,28 +1,32 @@
+import { useSelector } from "react-redux";
+import defaultProfile from "../../../../assets/images/avatars/user-default.jpg";
+
 const PostComments = (props) => {
+  const { post } = useSelector((state) => state.posts);
+  const userAvatar = post.user.photo_url ?? defaultProfile;
+  console.log("comments", post.comments);
   return (
     <div className="position-relative">
-      <div className="p-4 rounded-2 text-bg-light mb-3">
-        <div className="d-flex align-items-center gap-3">
-          <img
-            src="./assets/images/profile/user-3.jpg"
-            alt=""
-            className="rounded-circle"
-            width="33"
-            height="33"
-          />
-          <h6 className="fw-semibold mb-0 fs-4">Deran Mac</h6>
-          <span className="fs-2">
-            <span className="p-1 text-bg-muted rounded-circle d-inline-block"></span>{" "}
-            8 min ago
-          </span>
-        </div>
-        <p className="my-3">
-          Lufo zizrap iwofapsuk pusar luc jodawbac zi op uvezojroj duwage vuhzoc
-          ja vawdud le furhez siva fikavu ineloh. Zot afokoge si mucuve hoikpaf
-          adzuk zileuda falohfek zoije fuka udune lub annajor gazo conis sufur
-          gu.
-        </p>
-      </div>
+      {post.comments &&
+        post.comments.map((comment) => (
+          <div className="p-4 rounded-2 text-bg-light mb-3">
+            <div className="d-flex align-items-center gap-3">
+              <img
+                src={userAvatar}
+                alt=""
+                className="rounded-circle"
+                width="33"
+                height="33"
+              />
+              <h6 className="fw-semibold mb-0 fs-4">{post.user.name}</h6>
+              <span className="fs-2">
+                <span className="p-1 text-bg-muted rounded-circle d-inline-block"></span>{" "}
+                {post.created_at}
+              </span>
+            </div>
+            <p className="my-3">{comment.text}</p>
+          </div>
+        ))}
     </div>
   );
 };

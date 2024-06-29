@@ -52,7 +52,7 @@ const Feed = () => {
       {isLoading && <FeedSpinner />}
       {value && (
         <Modal title={viewPostTitle} onClose={() => toggle(false)}>
-          {!postLoader ? SkelPost : <SelectedPost post={selectedPost} />}
+          {postLoader ? SkelPost : <SelectedPost post={selectedPost} />}
         </Modal>
       )}
       <FeedContainer>
