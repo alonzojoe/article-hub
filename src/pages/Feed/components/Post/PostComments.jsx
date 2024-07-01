@@ -9,7 +9,10 @@ const PostComments = (props) => {
     <div className="position-relative">
       {post.comments &&
         post.comments.map((comment) => (
-          <div className="p-4 rounded-2 text-bg-light mb-3" key={comment.id}>
+          <div
+            className="px-3 pt-3 pb-2 rounded-2 text-bg-light mb-2"
+            key={comment.id}
+          >
             <div className="d-flex align-items-center gap-3">
               <img
                 src={userAvatar}
@@ -24,7 +27,7 @@ const PostComments = (props) => {
                 {post.created_at}
               </span>
             </div>
-            <p className="my-3">{comment.text}</p>
+            <p className="my-1">{comment.text}</p>
           </div>
         ))}
     </div>
