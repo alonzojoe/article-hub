@@ -4,7 +4,8 @@ const SECRET_KEY = import.meta.env.VITE_SECRET_KEY;
 
 export const encryptData = (data) => {
   try {
-    return CryptoJS.AES.encrypt(data, SECRET_KEY).toString();
+    const stringData = data.toString();
+    return CryptoJS.AES.encrypt(stringData, SECRET_KEY).toString();
   } catch (error) {
     console.error("Encryption error:", error);
     return null;

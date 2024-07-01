@@ -12,7 +12,7 @@ function App() {
         <Route element={<ProtectedRoutes />}>
           <Route path="/" element={<RootLayout />}>
             <Route index element={<Feed />} />
-            <Route path="/profile/:name" element={<Profile />} />
+            <Route path="/profile/:id" element={<Profile />} />
           </Route>
         </Route>
       </Routes>
