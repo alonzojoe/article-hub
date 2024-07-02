@@ -10,7 +10,7 @@ const ProfileHeader = () => {
       <img src={profileBg} alt="profile-bg" className="img-fluid" />
       <div className="row align-items-center">
         <div className="col-lg-4 order-lg-1 order-2">
-          <div className="d-flex align-items-center justify-content-around m-4">
+          {/* <div className="d-flex align-items-center justify-content-around m-4">
             <div className="text-center">
               <i className="ti ti-file-description fs-6 d-block mb-2"></i>
               <h4 className="mb-0 fw-semibold lh-1">938</h4>
@@ -26,7 +26,7 @@ const ProfileHeader = () => {
               <h4 className="mb-0 fw-semibold lh-1">2,659</h4>
               <p className="mb-0 fs-4">Following</p>
             </div>
-          </div>
+          </div> */}
         </div>
         <div className="col-lg-4 mt-n3 order-lg-2 order-1">
           <div className="mt-n5">
@@ -50,7 +50,7 @@ const ProfileHeader = () => {
         </div>
         <div className="col-lg-4 order-last">
           <ul className="list-unstyled d-flex align-items-center justify-content-center justify-content-lg-start my-3 gap-3">
-            <li className="position-relative">
+            {/* <li className="position-relative">
               <a
                 className="d-flex align-items-center justify-content-center text-bg-primary p-2 fs-4 rounded-circle"
                 href="javascript:void(0)"
@@ -83,9 +83,9 @@ const ProfileHeader = () => {
               >
                 <i className="ti ti-brand-youtube"></i>
               </a>
-            </li>
+            </li> */}
             <li>
-              <button className="btn btn-primary">Add To Story</button>
+              <button className="btn btn-primary">Create New Article</button>
             </li>
           </ul>
         </div>
