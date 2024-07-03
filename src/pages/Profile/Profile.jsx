@@ -1,4 +1,5 @@
 import ProfileHeader from "./components/ProfileHeader";
+import ProfileFeed from "./components/ProfileFeed";
 import { useParams } from "react-router-dom";
 import { decryptData } from "../../utils/enc";
 const Profile = () => {
@@ -9,6 +10,7 @@ const Profile = () => {
   return (
     <>
       <ProfileHeader />
+      <ProfileFeed userId={userId} />
     </>
   );
 };

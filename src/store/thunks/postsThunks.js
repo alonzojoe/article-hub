@@ -26,3 +26,13 @@ export const getPost = createAsyncThunk("getPost", async (id) => {
 
   return post;
 });
+
+export const fetchUserPosts = createAsyncThunk("fetchUserPosts", async (id) => {
+  const response = await api.get(`/article/user/${id}`);
+  return response.data.data.map((article) => {
+    return {
+      ...article,
+      created_at: formatPostDate(article.created_at),
+    };
+  });
+});
