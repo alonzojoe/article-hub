@@ -86,6 +86,9 @@ const UpdatePassword = () => {
                     value: 6,
                     message: "Must be at least 6 characters long",
                   },
+                  validate: (value) =>
+                    value === getValues("newPassword") ||
+                    "Passwords must match",
                 })}
                 type="password"
                 className={`form-control ${
