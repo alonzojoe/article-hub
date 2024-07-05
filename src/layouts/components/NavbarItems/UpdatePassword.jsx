@@ -2,14 +2,31 @@ import Input from "../../../components/Input";
 import Button from "../../../components/Button";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const changePasswordSchema = z
+  .object({
+    currentPassword: z.string().min(6, "Must be at least 6 characters long"),
+    newPassword: z.string().min(6, "Must be at least 6 characters long"),
+    confirmPassword: z
+      .string()
+      .min(1, { message: "Confirm Password is required" }),
+  })
+  .refine((data) => data.newPassword === data.confirmPassword, {
+    message: "Password must match",
+    path: ["confirmPassword"],
+  });
+
 const UpdatePassword = () => {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
     reset,
-    getValues,
-  } = useForm();
+  } = useForm({
+    resolver: zodResolver(changePasswordSchema),
+  });
 
   const onSubmit = async (data) => {
     console.log("credentials", data);
@@ -32,13 +49,7 @@ const UpdatePassword = () => {
                 Current Password
               </label>
               <Input
-                {...register("currentPassword", {
-                  required: "Current Password is required",
-                  minLength: {
-                    value: 6,
-                    message: "Must be at least 6 characters long",
-                  },
-                })}
+                {...register("currentPassword")}
                 type="password"
                 className={`form-control ${
                   errors.currentPassword ? "is-invalid" : ""
@@ -56,13 +67,7 @@ const UpdatePassword = () => {
                 New Password
               </label>
               <Input
-                {...register("newPassword", {
-                  required: "New Password is required",
-                  minLength: {
-                    value: 6,
-                    message: "Must be at least 6 characters long",
-                  },
-                })}
+                {...register("newPassword")}
                 type="password"
                 className={`form-control ${
                   errors.newPassword ? "is-invalid" : ""
@@ -80,16 +85,7 @@ const UpdatePassword = () => {
                 Confirm Password
               </label>
               <Input
-                {...register("confirmPassword", {
-                  required: "Confirm Password is required",
-                  minLength: {
-                    value: 6,
-                    message: "Must be at least 6 characters long",
-                  },
-                  validate: (value) =>
-                    value === getValues("newPassword") ||
-                    "Passwords must match",
-                })}
+                {...register("confirmPassword")}
                 type="password"
                 className={`form-control ${
                   errors.confirmPassword ? "is-invalid" : ""
