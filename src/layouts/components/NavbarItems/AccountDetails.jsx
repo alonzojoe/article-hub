@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { uiActions } from "../../../store/slices/uiSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Cookie from "cookiejs";
@@ -7,9 +8,8 @@ import api from "../../../services/api";
 import { encryptData } from "../../../utils/enc";
 import Modal from "../../../components/Modal";
 import Card from "../../../components/Card";
-import defaultProfile from "../../../assets/images/avatars/user-default.jpg";
-import Input from "../../../components/Input";
-import Button from "../../../components/Button";
+import UpdateProfile from "./UpdateProfile";
+import UpdatePassword from "./UpdatePassword";
 const AccountDetails = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -42,6 +42,21 @@ const AccountDetails = () => {
     navigate(`/profile/${user}`);
   };
 
+  const [tabs, setTabs] = useState([
+    { id: 1, name: "Profile", icon: "ti-user-circle", active: true },
+    { id: 2, name: "Security", icon: "ti-lock", active: false },
+  ]);
+
+  const selectTab = (id) => {
+    console.log(id);
+    setTabs((prevData) =>
+      prevData.map((data) => ({
+        ...data,
+        active: id === data.id,
+      }))
+    );
+  };
+
   return (
     <>
       <Modal>
@@ -51,123 +66,22 @@ const AccountDetails = () => {
             id="pills-tab"
             role="tablist"
           >
-            <li className="nav-item" role="presentation">
-              <button
-                className="nav-link position-relative rounded-0 d-flex align-items-center justify-content-center bg-transparent fs-3 py-3"
-                id="pills-account-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#pills-account"
-                type="button"
-                role="tab"
-                aria-controls="pills-account"
-                aria-selected="false"
-                tabindex="-1"
-              >
-                <i className="ti ti-user-circle me-2 fs-6"></i>
-                <span className="d-none d-md-block">Account</span>
-              </button>
-            </li>
-
-            <li className="nav-item" role="presentation">
-              <button
-                className="nav-link position-relative rounded-0 d-flex align-items-center justify-content-center bg-transparent fs-3 py-3"
-                id="pills-security-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#pills-security"
-                type="button"
-                role="tab"
-                aria-controls="pills-security"
-                aria-selected="false"
-                tabindex="-1"
-              >
-                <i className="ti ti-lock me-2 fs-6"></i>
-                <span className="d-none d-md-block">Security</span>
-              </button>
-            </li>
+            {tabs.map((tab) => (
+              <li className="nav-item" role="presentation" key={tab.id}>
+                <button
+                  className={`nav-link position-relative rounded-0 d-flex align-items-center justify-content-center bg-transparent fs-3 py-3 ${
+                    tab.active ? "active" : ""
+                  }`}
+                  type="button"
+                  onClick={() => selectTab(tab.id)}
+                >
+                  <i className={`ti ${tab.icon} me-2 fs-6`}></i>
+                  <span className="d-none d-md-block">{tab.name}</span>
+                </button>
+              </li>
+            ))}
           </ul>
-          <div className="profile">
-            <div className="w-100 border position-relative overflow-hidden">
-              <div className="p-4">
-                <h4>Update Profile</h4>
-                <div className="text-center">
-                  <img
-                    src={defaultProfile}
-                    alt="modernize-img"
-                    className="img-fluid rounded-circle"
-                    width="120"
-                    height="120"
-                  />
-                  <div className="d-flex align-items-center justify-content-center my-4 gap-6">
-                    <button className="btn btn-primary">Upload</button>
-                    <button className="btn bg-danger-subtle text-danger">
-                      Reset
-                    </button>
-                  </div>
-                  <p className="mb-3">
-                    Allowed JPG, GIF or PNG. Max size of 800K
-                  </p>
-                </div>
-                <div className="row">
-                  <div className="col-12">
-                    <div className="mb-4">
-                      <label for="exampleInputtext" className="form-label">
-                        Name
-                      </label>
-                      <Input
-                        type="text"
-                        className="form-control"
-                        id="exampleInputtext"
-                        placeholder="Mathew Anderson"
-                      />
-                    </div>
-                  </div>
-                  <div className="col-12">
-                    <Button className="btn-primary w-100">Update</Button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="security">
-            <div className="w-100 border position-relative overflow-hidden">
-              <div className="p-4">
-                <h4>Change Password</h4>
-                <form>
-                  <div className="mb-3">
-                    <label for="current-password" className="form-label">
-                      Current Password
-                    </label>
-                    <Input
-                      type="password"
-                      className="form-control"
-                      id="current-password"
-                    />
-                  </div>
-                  <div className="mb-3">
-                    <label for="new-password" className="form-label">
-                      New Password
-                    </label>
-                    <Input
-                      type="password"
-                      className="form-control"
-                      id="new-password"
-                    />
-                  </div>
-                  <div className="mb-4">
-                    <label for="confirm-password" className="form-label">
-                      Confirm Password
-                    </label>
-                    <Input
-                      type="password"
-                      className="form-control"
-                      id="confirm-password"
-                    />
-                  </div>
-                  <Button className="btn-primary w-100">Update</Button>
-                </form>
-              </div>
-            </div>
-          </div>
+          <>{tabs[0].active ? <UpdateProfile /> : <UpdatePassword />}</>
         </Card>
       </Modal>
       <div
