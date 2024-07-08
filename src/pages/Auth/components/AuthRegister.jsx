@@ -2,9 +2,11 @@ import { useState, useCallback } from "react";
 import Label from "../../../components/Label";
 import Input from "../../../components/Input";
 import Button from "../../../components/Button";
-import api from "../../../services/api";
 import { toast } from "react-hot-toast";
 import useApi from "../../../hooks/useApi";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 const registryState = {
   name: "",
   email: "",
@@ -12,8 +14,29 @@ const registryState = {
   confirm: "",
 };
 
+const registrySchema = z
+  .object({
+    name: z.string().min(1, "Name is required"),
+    email: z.string().min(1, "Email is required").email("Invalid Email"),
+    password: z.string().min(6, "Must be at least 6 characters long"),
+    confirm: z.string().min(6, "Must be at least 6 characters long"),
+  })
+  .refine((data) => data.password === data.confirm, {
+    message: "Passwords do not match",
+    path: ["confirm"],
+  });
+
 const AuthRegister = ({ changeSection }) => {
   const [formData, setFormData] = useState(registryState);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm({
+    resolver: zodResolver(registrySchema),
+  });
 
   const onSuccess = useCallback(
     (data) => {
