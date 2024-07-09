@@ -4,8 +4,8 @@ const useFileUpload = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewImg, setPreviewImg] = useState(null);
 
-  const handleFileUpload = (event) => {
-    const file = event.target.files[0];
+  const handleFileUpload = (e) => {
+    const file = e.target.files[0];
 
     if (file) {
       setSelectedFile(file);
@@ -22,7 +22,7 @@ const useFileUpload = () => {
     setPreviewImg(null);
   };
 
-  return [selectedFile, previewImg, handleFileUpload, clearUpload];
+  return [handleFileUpload, previewImg, handleFileUpload, clearUpload];
 };
 
 export default useFileUpload;
