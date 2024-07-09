@@ -24,6 +24,7 @@ const UpdateProfile = () => {
   const formSubmit = async (formData) => {
     await new Promise((resolve) => setTimeout(resolve, 2000));
     console.log("formData", formData);
+    reset();
   };
 
   return (
@@ -47,15 +48,20 @@ const UpdateProfile = () => {
                 className="d-none"
               />
               <div className="d-flex align-items-center justify-content-center my-4 gap-6">
-                <button className="btn btn-primary" onClick={selectFile}>
+                <Button
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={selectFile}
+                >
                   Upload
-                </button>
-                <button
+                </Button>
+                <Button
+                  type="button"
                   className="btn bg-danger-subtle text-danger"
                   onClick={clearUpload}
                 >
                   Reset
-                </button>
+                </Button>
               </div>
               <p className="mb-3">Allowed JPG, GIF or PNG. Max size of 800K</p>
             </div>
@@ -78,7 +84,6 @@ const UpdateProfile = () => {
                       errors.name ? "is-invalid" : ""
                     }`}
                     id="profile-name"
-                    placeholder="Mathew Anderson"
                   />
                   <div className="invalid-feedback">
                     {errors?.name?.message}
