@@ -7,16 +7,13 @@ import useApi from "../../../hooks/useApi";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-const registryState = {
-  name: "",
-  email: "",
-  password: "",
-  confirm: "",
-};
 
 const registrySchema = z
   .object({
-    name: z.string().min(1, "Name is required"),
+    name: z
+      .string()
+      .min(1, "Name is required")
+      .min(3, "Name at least 3 characters long"),
     email: z.string().min(1, "Email is required").email("Invalid Email"),
     password: z.string().min(6, "Must be at least 6 characters long"),
     confirm: z.string().min(6, "Must be at least 6 characters long"),
@@ -27,8 +24,6 @@ const registrySchema = z
   });
 
 const AuthRegister = ({ changeSection }) => {
-  const [formData, setFormData] = useState(registryState);
-
   const {
     register,
     handleSubmit,
@@ -41,8 +36,8 @@ const AuthRegister = ({ changeSection }) => {
   const onSuccess = useCallback(
     (data) => {
       toast.success("Account Created Successfully! Please Proceed to login.");
-      setFormData(registryState);
       changeSection(false);
+      reset();
     },
     [changeSection]
   );
@@ -58,41 +53,37 @@ const AuthRegister = ({ changeSection }) => {
     onFailure,
   });
 
-  const changeHandler = useCallback((event) => {
-    const { name, value } = event.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  }, []);
+  // const singupHandler = useCallback(
+  //   async (e) => {
+  //     e.preventDefault();
+  //     console.log("fomr submitted");
+  //     await callApi(formData);
+  //   },
+  //   [formData, callApi]
+  // );
 
-  const singupHandler = useCallback(
-    async (e) => {
-      e.preventDefault();
-      console.log("fomr submitted");
-      await callApi(formData);
-    },
-    [formData, callApi]
-  );
+  const singupHandler = async (formData) => {
+    console.log("fomrData", formData);
+    await callApi(formData);
+  };
 
   return (
     <>
       <h3 className="text-center mb-3">Account Registration</h3>
-      {JSON.stringify(formData)}
-      <form onSubmit={singupHandler}>
+      <form onSubmit={handleSubmit((data) => singupHandler(data))}>
         <div className="mb-3">
           <div className="form-group">
-            <Label htmlFor="rname" className={`form-label text-danger`}>
+            <Label htmlFor="rname" className="form-label">
               Name
             </Label>
             <Input
+              {...register("name")}
+              className={`${errors.name ? "is-invalid" : ""}`}
               type="text"
-              value={formData.name}
-              onChange={changeHandler}
-              className="is-invalid"
               name="name"
               id="rname"
             />
+            <div className="invalid-feedback">{errors.name?.message}</div>
           </div>
         </div>
         <div className="mb-4">
@@ -100,39 +91,39 @@ const AuthRegister = ({ changeSection }) => {
             Email
           </Label>
           <Input
+            {...register("email")}
+            className={`${errors.email ? "is-invalid" : ""}`}
             type="email"
-            value={formData.email}
-            onChange={changeHandler}
             id="remail"
             name="email"
-            required
           />
+          <div className="invalid-feedback">{errors.email?.message}</div>
         </div>
         <div className="mb-4">
           <Label htmlFor="rpassword" className="form-label">
             Password
           </Label>
           <Input
+            {...register("password")}
+            className={`${errors.password ? "is-invalid" : ""}`}
             type="password"
-            value={formData.password}
-            onChange={changeHandler}
             id="rpassword"
             name="password"
-            required
           />
+          <div className="invalid-feedback">{errors.password?.message}</div>
         </div>
         <div className="mb-4">
           <Label htmlFor="rconf" className="form-label">
             Confirm Password
           </Label>
           <Input
+            {...register("confirm")}
+            className={`${errors.confirm ? "is-invalid" : ""}`}
             type="password"
-            value={formData.confirm}
-            onChange={changeHandler}
             id="rconf"
             name="confirm"
-            required
           />
+          <div className="invalid-feedback">{errors.confirm?.message}</div>
         </div>
         <div className="d-flex align-items-center justify-content-end mb-4">
           <a
@@ -142,8 +133,8 @@ const AuthRegister = ({ changeSection }) => {
             Proceed to Login
           </a>
         </div>
-        <Button className="btn-primary w-100 mb-4" disabled={isLoading}>
-          {isLoading ? "Singing Up..." : "Sign Up"}
+        <Button className="btn-primary w-100 mb-4" disabled={isSubmitting}>
+          {isSubmitting ? "Singing Up..." : "Sign Up"}
         </Button>
       </form>
     </>
