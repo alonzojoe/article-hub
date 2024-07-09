@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-
+import api from "../../../services/api";
 const changePasswordSchema = z
   .object({
     currentPassword: z.string().min(6, "Must be at least 6 characters long"),
@@ -18,7 +18,7 @@ const changePasswordSchema = z
     path: ["confirmPassword"],
   });
 
-const UpdatePassword = () => {
+const UpdatePassword = ({ user, onClose }) => {
   const {
     register,
     handleSubmit,
@@ -29,10 +29,19 @@ const UpdatePassword = () => {
   });
 
   const onSubmit = async (data) => {
-    console.log("credentials", data);
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    toast.success("Password changed successfully");
-    reset();
+    try {
+      await api.patch(`/auth/change/${user.id}`, {
+        old_password: data.currentPassword,
+        new_password: data.newPassword,
+      });
+      toast.success("Password changed successfully");
+      reset();
+      onClose(false);
+    } catch (error) {
+      console.log(error);
+      toast.error(`${error?.response?.data?.message}`);
+      reset();
+    }
   };
 
   return (

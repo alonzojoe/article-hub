@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 import { setLocalStorage } from "../../../utils/storageActions";
 import { encryptData } from "../../../utils/enc";
 import api from "../../../services/api";
-const UpdateProfile = ({ user }) => {
+const UpdateProfile = ({ user, onClose }) => {
   const [selectedFile, previewImg, handleFileUpload, clearUpload] =
     useFileUpload();
 
@@ -43,6 +43,7 @@ const UpdateProfile = ({ user }) => {
       });
       setUpdatedUser(response.data.user);
       toast.success("Profile updated successfully");
+      onClose(false)
     } catch (error) {
       toast.error("An error occured");
     } finally {

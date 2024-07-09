@@ -59,10 +59,15 @@ const AccountDetails = () => {
 
   const [showSettings, setShowSettings] = useState();
 
+  const closeModal = () => {
+    selectTab(1);
+    setShowSettings(false);
+  };
+
   return (
     <>
       {showSettings && (
-        <Modal onClose={() => setShowSettings(false)}>
+        <Modal onClose={closeModal}>
           <Card>
             <ul
               className="nav nav-pills user-profile-tab"
@@ -86,9 +91,9 @@ const AccountDetails = () => {
             </ul>
             <>
               {tabs[0].active ? (
-                <UpdateProfile user={user} />
+                <UpdateProfile user={user} onClose={setShowSettings} />
               ) : (
-                <UpdatePassword user={user} />
+                <UpdatePassword user={user} onClose={setShowSettings} />
               )}
             </>
           </Card>

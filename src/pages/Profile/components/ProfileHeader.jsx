@@ -44,7 +44,7 @@ const ProfileHeader = () => {
               </div>
             </div>
             <div className="text-center">
-              <h5 className="fs-5 mb-0 fw-semibold">{user.name}</h5>
+              <h5 className="fs-5 mb-0 fw-semibold">{user?.name}</h5>
             </div>
           </div>
         </div>
