@@ -22,7 +22,7 @@ const useFileUpload = () => {
     setPreviewImg(null);
   };
 
-  return [handleFileUpload, previewImg, handleFileUpload, clearUpload];
+  return [selectedFile, previewImg, handleFileUpload, clearUpload];
 };
 
 export default useFileUpload;

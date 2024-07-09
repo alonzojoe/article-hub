@@ -57,33 +57,44 @@ const AccountDetails = () => {
     );
   };
 
+  const [showSettings, setShowSettings] = useState();
+
   return (
     <>
-      <Modal>
-        <Card>
-          <ul
-            className="nav nav-pills user-profile-tab"
-            id="pills-tab"
-            role="tablist"
-          >
-            {tabs.map((tab) => (
-              <li className="nav-item" role="presentation" key={tab.id}>
-                <button
-                  className={`nav-link position-relative rounded-0 d-flex align-items-center justify-content-center bg-transparent fs-3 py-3 ${
-                    tab.active ? "active" : ""
-                  }`}
-                  type="button"
-                  onClick={() => selectTab(tab.id)}
-                >
-                  <i className={`ti ${tab.icon} me-2 fs-6`}></i>
-                  <span className="d-none d-md-block">{tab.name}</span>
-                </button>
-              </li>
-            ))}
-          </ul>
-          <>{tabs[0].active ? <UpdateProfile /> : <UpdatePassword />}</>
-        </Card>
-      </Modal>
+      {showSettings && (
+        <Modal onClose={() => setShowSettings(false)}>
+          <Card>
+            <ul
+              className="nav nav-pills user-profile-tab"
+              id="pills-tab"
+              role="tablist"
+            >
+              {tabs.map((tab) => (
+                <li className="nav-item" role="presentation" key={tab.id}>
+                  <button
+                    className={`nav-link position-relative rounded-0 d-flex align-items-center justify-content-center bg-transparent fs-3 py-3 ${
+                      tab.active ? "active" : ""
+                    }`}
+                    type="button"
+                    onClick={() => selectTab(tab.id)}
+                  >
+                    <i className={`ti ${tab.icon} me-2 fs-6`}></i>
+                    <span className="d-none d-md-block">{tab.name}</span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+            <>
+              {tabs[0].active ? (
+                <UpdateProfile user={user} />
+              ) : (
+                <UpdatePassword user={user} />
+              )}
+            </>
+          </Card>
+        </Modal>
+      )}
+
       <div
         className="collapse navbar-collapse justify-content-end"
         id="navbarNav"
@@ -149,6 +160,7 @@ const AccountDetails = () => {
                       data-v-c4be3a62=""
                       type="button"
                       className="btn btn-rounded btn-dark btn-sm mb-1"
+                      onClick={() => setShowSettings(true)}
                     >
                       <i data-v-c4be3a62="" className="ti ti-settings"></i>{" "}
                       Settings{" "}

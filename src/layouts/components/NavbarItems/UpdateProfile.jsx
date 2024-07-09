@@ -4,7 +4,11 @@ import Button from "../../../components/Button";
 import defaultProfile from "../../../assets/images/avatars/user-default.jpg";
 import useFileUpload from "../../../hooks/useFileUpload";
 import { useForm } from "react-hook-form";
-const UpdateProfile = () => {
+import toast from "react-hot-toast";
+import { setLocalStorage } from "../../../utils/storageActions";
+import { encryptData } from "../../../utils/enc";
+import api from "../../../services/api";
+const UpdateProfile = ({ user }) => {
   const [selectedFile, previewImg, handleFileUpload, clearUpload] =
     useFileUpload();
 
@@ -19,12 +23,46 @@ const UpdateProfile = () => {
     handleSubmit,
     formState: { errors, isSubmitting },
     reset,
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      name: user?.name || "",
+    },
+  });
 
-  const formSubmit = async (formData) => {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    console.log("formData", formData);
-    reset();
+  const formSubmit = async (data) => {
+    try {
+      const formData = new FormData();
+      formData.append("name", data.name);
+      formData.append("profile", selectedFile);
+      formData.append("_method", "PATCH");
+
+      const response = await api.post(`/auth/update/${user.id}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      setUpdatedUser(response.data.user);
+      toast.success("Profile updated successfully");
+    } catch (error) {
+      toast.error("An error occured");
+    } finally {
+      reset();
+      window.location.reload();
+    }
+  };
+
+  const setUpdatedUser = (user) => {
+    const updatedUser = encryptData(JSON.stringify(user));
+    setLocalStorage(import.meta.env.VITE_AUTH_USER, updatedUser);
+  };
+
+  const getProfileImageSrc = () => {
+    console.log("user", user);
+    if (previewImg) return previewImg;
+
+    if (user.profile_url) return user.profile_url;
+
+    return defaultProfile;
   };
 
   return (
@@ -35,7 +73,7 @@ const UpdateProfile = () => {
           <form onSubmit={handleSubmit((data) => formSubmit(data))}>
             <div className="text-center">
               <img
-                src={previewImg ? previewImg : defaultProfile}
+                src={getProfileImageSrc()}
                 alt="modernize-img"
                 className="img-fluid rounded-circle"
                 width="120"
