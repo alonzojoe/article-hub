@@ -54,7 +54,7 @@ const CreatePost = () => {
       const formData = new FormData();
       formData.append("title", titleRef.current.value);
       formData.append("content", contentRef.current.value);
-      formData.append("photo", selectedFile);
+      if (selectedFile) formData.append("photo", selectedFile);
       formData.append("user_id", user.id);
       await api.post("/article/create", formData, {
         "Content-Type": "multipart/form-data",

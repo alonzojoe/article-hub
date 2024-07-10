@@ -11,6 +11,7 @@ const PostBody = ({ post }) => {
             src={post.photo_url}
             alt=""
             className="img-fluid rounded-4 w-100"
+            loading="lazy"
           />
         </div>
       )}

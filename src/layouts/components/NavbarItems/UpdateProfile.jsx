@@ -33,7 +33,7 @@ const UpdateProfile = ({ user, onClose }) => {
     try {
       const formData = new FormData();
       formData.append("name", data.name);
-      formData.append("profile", selectedFile);
+      if(selectFile) formData.append("profile", selectedFile);
       formData.append("_method", "PATCH");
 
       const response = await api.post(`/auth/update/${user.id}`, formData, {
@@ -44,11 +44,10 @@ const UpdateProfile = ({ user, onClose }) => {
       setUpdatedUser(response.data.user);
       toast.success("Profile updated successfully");
       onClose(false);
-    } catch (error) {
-      toast.error("An error occured");
-    } finally {
       reset();
       window.location.reload();
+    } catch (error) {
+      toast.error("An error occured");
     }
   };
 
