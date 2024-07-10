@@ -4,6 +4,7 @@ import Auth from "./pages/Auth/Auth";
 import Feed from "./pages/Feed/Feed";
 import Profile from "./pages/Profile/Profile";
 import ProtectedRoutes from "./middleware/ProtectedRoutes";
+import NotFound from "./pages/Errors/NotFound";
 function App() {
   return (
     <BrowserRouter>
@@ -13,6 +14,7 @@ function App() {
           <Route path="/" element={<RootLayout />}>
             <Route index element={<Feed />} />
             <Route path="/profile/:id" element={<Profile />} />
+            <Route path="*" element={<NotFound />} />
           </Route>
         </Route>
       </Routes>

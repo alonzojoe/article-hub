@@ -43,7 +43,7 @@ const UpdateProfile = ({ user, onClose }) => {
       });
       setUpdatedUser(response.data.user);
       toast.success("Profile updated successfully");
-      onClose(false)
+      onClose(false);
     } catch (error) {
       toast.error("An error occured");
     } finally {
