@@ -69,7 +69,7 @@ const AuthRegister = ({ changeSection }) => {
 
   return (
     <>
-      <h3 className="text-center mb-3">Account Registration</h3>
+      <h3 className="text-center mt-4 mb-3">Account Registration</h3>
       <form onSubmit={handleSubmit((data) => singupHandler(data))}>
         <div className="mb-3">
           <div className="form-group">

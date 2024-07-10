@@ -4,6 +4,7 @@ import AuthContainer from "./components/AuthContainer";
 import Card from "../../components/Card";
 import AuthLogin from "./components/AuthLogin";
 import AuthRegister from "./components/AuthRegister";
+import AuthImages from "./components/AuthImages";
 import useToggle from "../../hooks/useToggle";
 import useTheme from "../../hooks/useTheme";
 import { Toaster } from "react-hot-toast";
@@ -28,7 +29,20 @@ const Auth = () => {
     <>
       <Toaster />
       <AuthContainer>
-        <Card className="mb-0">
+        <div className="row">
+          <AuthImages />
+          <div className="col-xl-5 col-xxl-4">
+            <div className="authentication-login min-vh-100 bg-body row justify-content-center align-items-center p-4 border-left">
+              <div className="col-sm-8 col-md-6 col-xl-9">
+                <h2 className="mb-3 fs-7 fw-bolder mb-3">
+                  Welcome to ArticleHub
+                </h2>
+                {activeTab}
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* <Card className="mb-0">
           <a
             href="#"
             className="text-nowrap logo-img text-center d-block mb-4 w-100"
@@ -36,7 +50,7 @@ const Auth = () => {
             <Logo customWidth="50" />
           </a>
           {activeTab}
-        </Card>
+        </Card> */}
       </AuthContainer>
     </>
   );

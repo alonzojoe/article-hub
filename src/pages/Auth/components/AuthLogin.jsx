@@ -62,7 +62,10 @@ const AuthLogin = ({ changeSection }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit((data) => signInHandler(data))}>
+    <form
+      className="mt-4"
+      onSubmit={handleSubmit((data) => signInHandler(data))}
+    >
       <div className="mb-3">
         <Label htmlFor="email" className="form-label">
           Email
