@@ -14,16 +14,32 @@ import { useSelector, useDispatch } from "react-redux";
 import toast from "react-hot-toast";
 import { fetchPosts } from "../../../../store/thunks/postsThunks";
 import api from "../../../../services/api";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+
+const postSchema = z.object({
+  title: z.string().min(1, { message: "Title is required" }),
+  content: z.string().min(1, { message: "Content is required" }),
+});
+
 const CreatePost = () => {
   const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState();
   const { user } = useSelector((state) => state.auth);
   const [value, toggleValue] = useToggle(false);
   const [selectedFile, previewImg, handleFileUpload, clearUpload] =
     useFileUpload();
 
   const titleRef = useRef();
-  const contentRef = useRef("");
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm({
+    resolver: zodResolver(postSchema),
+  });
 
   const setTitleRef = useCallback((node) => {
     if (node) {
@@ -47,13 +63,11 @@ const CreatePost = () => {
     toggleValue(false);
   };
 
-  const submitHandler = async (e) => {
-    e.preventDefault();
-    setIsLoading(true);
+  const submitHandler = async (data) => {
     try {
       const formData = new FormData();
-      formData.append("title", titleRef.current.value);
-      formData.append("content", contentRef.current.value);
+      formData.append("title", data.title);
+      formData.append("content", data.content);
       if (selectedFile) formData.append("photo", selectedFile);
       formData.append("user_id", user.id);
       await api.post("/article/create", formData, {
@@ -62,8 +76,6 @@ const CreatePost = () => {
       succeed();
     } catch (error) {
       toast.error("Snap!" + error?.response?.data?.message);
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -71,6 +83,7 @@ const CreatePost = () => {
     onClose();
     dispatch(fetchPosts());
     toast.success("Article posted successfully.");
+    reset();
   }
 
   return (
@@ -103,7 +116,7 @@ const CreatePost = () => {
       {value && (
         <Modal title="Create Article" onClose={onClose}>
           <hr />
-          <form onSubmit={submitHandler}>
+          <form onSubmit={handleSubmit((data) => submitHandler(data))}>
             <div className="d-flex justify-content-between align-items-center gap-3 mb-3">
               <div className="d-flex gap-3  align-items-center">
                 <Avatar
@@ -133,16 +146,19 @@ const CreatePost = () => {
             </div>
             <div className="mb-3">
               <Input
+                className={`${errors.title ? "is-invalid" : ""}`}
                 ref={setTitleRef}
                 type="text"
                 placeholder="Article Title"
+                {...register("title")}
               />
             </div>
             <div className="mb-3">
               <Textarea
+                {...register("content")}
+                className={`${errors.content ? "is-invalid" : ""}`}
                 placeholder="Write your article content..."
                 style={{ height: "140px" }}
-                ref={contentRef}
                 id="postText"
               ></Textarea>
             </div>
@@ -154,8 +170,8 @@ const CreatePost = () => {
                 style={{ height: "360px" }}
               />
             )}
-            <Button className="btn-primary w-100" disabled={isLoading}>
-              {isLoading ? "Posting..." : "Post"}
+            <Button className="btn-primary w-100" disabled={isSubmitting}>
+              {isSubmitting ? "Posting..." : "Post"}
             </Button>
           </form>
         </Modal>
