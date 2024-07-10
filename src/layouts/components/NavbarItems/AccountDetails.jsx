@@ -32,7 +32,8 @@ const AccountDetails = () => {
     } finally {
       Cookie.remove(`${import.meta.env.VITE_AUTH_KEY}`);
       localStorage.removeItem(import.meta.env.VITE_AUTH_USER);
-      navigate("/login");
+      // navigate("/login");
+      window.location.href = "/login";
     }
   };
 
