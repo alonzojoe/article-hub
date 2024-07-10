@@ -1,5 +1,5 @@
-import lightLogo from "../assets/images/logos/light/svg/logo.svg";
-import darkLogo from "../assets/images/logos/dark/svg/logo.svg";
+import lightLogo from "../assets/images/logos/dark/dark-logo.png";
+import darkLogo from "../assets/images/logos/light/light-logo.png";
 import { useSelector } from "react-redux";
 const Logo = ({ customWidth, ...props }) => {
   const appTheme = useSelector((state) => state.ui.appTheme);
@@ -10,7 +10,7 @@ const Logo = ({ customWidth, ...props }) => {
   return (
     <img
       src={appTheme === "dark" ? darkLogo : lightLogo}
-      style={{ height: "auto", width: "130px" }}
+      style={{ height: "auto", width: "200px" }}
       className={combined}
       {...props}
       alt="logo"
