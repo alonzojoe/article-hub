@@ -67,7 +67,7 @@ const AccountDetails = () => {
   return (
     <>
       {showSettings && (
-        <Modal onClose={closeModal}>
+        <Modal title="Account Settings" onClose={closeModal}>
           <Card>
             <ul
               className="nav nav-pills user-profile-tab"

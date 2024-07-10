@@ -85,6 +85,7 @@ const UpdateProfile = ({ user, onClose }) => {
                 ref={inputFileRef}
                 onChange={handleFileUpload}
                 className="d-none"
+                accept=".jpg,.jpeg,.png,.gif"
               />
               <div className="d-flex align-items-center justify-content-center my-4 gap-6">
                 <Button
