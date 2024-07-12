@@ -20,7 +20,7 @@ const ModalOverlay = ({ children, title, onClose }) => {
         </span>
         <div className="position-relative border-bottom px-2 py-2 m-2 mt-2">
           <div className="text-dark h4 px-2 fw-bold text-center">{title}</div>
-          <div>{children}</div>
+          <div className="overflow-y-auto">{children}</div>
         </div>
       </div>
     </Backdrop>

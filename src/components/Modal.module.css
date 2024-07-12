@@ -14,7 +14,7 @@
 .modal-container {
   width: 70vh;
   height: fit-content;
-  max-height: 100vh;
+  max-height: 90vh;
   animation: showModal 0.5s ease-in;
 }
 
@@ -26,14 +26,14 @@
 }
 
 .close-btn i:hover {
-  color: #FA4D5E;
+  color: #fa4d5e;
   transform: scale(2.5);
   transition: transform 0.4s ease-in;
 }
 
 @media screen and (max-width: 768px) {
   .modal-container {
-    width: 90vh m !important;
+    width: 90vh !important;
   }
 }
 
