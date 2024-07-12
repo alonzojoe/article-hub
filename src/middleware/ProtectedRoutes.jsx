@@ -38,10 +38,9 @@ const ProtectedRoutes = () => {
   }, [setAppTheme, authUser, dispatch]);
 
   if (isLoading) return <Loader />;
-  if (error || !auth) return <Navigate to="/login" />;
+  if (error || !auth) window.location.href = "/login";
 
   return <Outlet />;
 };
 
 export default ProtectedRoutes;
-
