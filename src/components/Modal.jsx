@@ -1,4 +1,5 @@
 import ReactDOM from "react-dom";
+import { useEffect } from "react";
 import classes from "./Modal.module.css";
 
 const Backdrop = ({ children }) => {
@@ -28,6 +29,13 @@ const ModalOverlay = ({ children, title, onClose }) => {
 
 const portalOverlay = document.getElementById("overlays");
 const Modal = ({ title, onClose, children }) => {
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
   return (
     <>
       {ReactDOM.createPortal(
