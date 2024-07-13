@@ -10,6 +10,7 @@ import FeedSpinner from "../../components/FeedSpinner";
 import Modal from "../../components/Modal";
 import useToggle from "../../hooks/useToggle";
 import SkeletonPost from "./Skeletons/SkeletonPost";
+import CommentBox from "./components/Post/CommentBox";
 import SkeletonComments from "./Skeletons/SkeletonComments";
 const Feed = () => {
   const { items, isLoading, error, post, postLoader, postError } = useSelector(
@@ -51,7 +52,11 @@ const Feed = () => {
     <>
       {isLoading && <FeedSpinner />}
       {value && (
-        <Modal title={viewPostTitle} onClose={() => toggle(false)}>
+        <Modal
+          title={viewPostTitle}
+          footer={<CommentBox />}
+          onClose={() => toggle(false)}
+        >
           {postLoader ? SkelPost : <SelectedPost post={selectedPost} />}
         </Modal>
       )}

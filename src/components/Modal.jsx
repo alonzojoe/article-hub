@@ -6,7 +6,7 @@ const Backdrop = ({ children }) => {
   return <div className={classes.backdrop}>{children}</div>;
 };
 
-const ModalOverlay = ({ children, title, onClose }) => {
+const ModalOverlay = ({ children, title, onClose, footer }) => {
   return (
     <Backdrop>
       <div
@@ -20,7 +20,8 @@ const ModalOverlay = ({ children, title, onClose }) => {
         </span>
         <div className="position-relative border-bottom px-2 py-2 m-2 mt-2">
           <div className="text-dark h4 px-2 fw-bold text-center">{title}</div>
-          <div className="overflow-y-auto">{children}</div>
+          <div className={classes["modal-content"]}>{children}</div>
+          <div className="text-dark pb-2 px-4">{footer}</div>
         </div>
       </div>
     </Backdrop>
@@ -28,7 +29,7 @@ const ModalOverlay = ({ children, title, onClose }) => {
 };
 
 const portalOverlay = document.getElementById("overlays");
-const Modal = ({ title, onClose, children }) => {
+const Modal = ({ title, onClose, children, footer }) => {
   useEffect(() => {
     document.body.style.overflow = "hidden";
 
@@ -39,7 +40,7 @@ const Modal = ({ title, onClose, children }) => {
   return (
     <>
       {ReactDOM.createPortal(
-        <ModalOverlay title={title} onClose={onClose}>
+        <ModalOverlay title={title} footer={footer} onClose={onClose}>
           {children}
         </ModalOverlay>,
         portalOverlay

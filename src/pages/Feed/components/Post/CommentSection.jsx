@@ -4,7 +4,6 @@ const CommentSection = () => {
   return (
     <>
       <PostComments />
-      <CommentBox />
     </>
   );
 };

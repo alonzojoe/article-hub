@@ -13,9 +13,16 @@
 
 .modal-container {
   width: 70vh;
-  height: fit-content;
-  max-height: 90vh;
+  /* height: fit-content; */
+  max-height: 100vh;
+  overflow:hidden;
   animation: showModal 0.5s ease-in;
+}
+
+.modal-content{
+  max-height: 60vh;
+  overflow-y: auto;
+  padding: 10px 0;
 }
 
 .close-btn {
