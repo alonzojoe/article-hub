@@ -163,12 +163,13 @@ const CreatePost = () => {
               ></Textarea>
             </div>
             {previewImg && (
-              <img
-                src={previewImg}
-                alt=""
-                className="img-fluid rounded-4 w-100 mb-3 object-fit-cover"
-                style={{ height: "360px" }}
-              />
+              <div className="d-flex justify-content-center rounded bg-dark mb-3 ">
+                <img
+                  src={previewImg}
+                  alt=""
+                  className="rounded-4 responsive-preview"
+                />
+              </div>
             )}
             <Button className="btn-primary w-100" disabled={isSubmitting}>
               {isSubmitting ? "Posting..." : "Post"}

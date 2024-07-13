@@ -15,14 +15,14 @@
   width: 70vh;
   /* height: fit-content; */
   max-height: 100vh;
-  overflow:hidden;
+  overflow: hidden;
   animation: showModal 0.5s ease-in;
 }
 
-.modal-content{
+.modal-content {
   max-height: 60vh;
   overflow-y: auto;
-  padding: 10px 0;
+  padding: 10px 15px;
 }
 
 .close-btn {

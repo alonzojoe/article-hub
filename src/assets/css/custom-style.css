@@ -273,3 +273,8 @@ a {
   height: auto; 
   object-fit: cover; 
 }
+
+.responsive-preview{
+  max-width:100%;
+  height: auto;
+}
