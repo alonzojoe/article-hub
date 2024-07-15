@@ -27,7 +27,6 @@ const Navbar = () => {
           </a>
         </li>
       </ul>
-
       <button
         className="navbar-toggler p-0 border-0"
         type="button"

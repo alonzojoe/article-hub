@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { uiActions } from "../../../store/slices/uiSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Cookie from "cookiejs";
@@ -8,6 +8,7 @@ import api from "../../../services/api";
 import { encryptData } from "../../../utils/enc";
 import Modal from "../../../components/Modal";
 import Card from "../../../components/Card";
+import Input from "../../../components/Input";
 import UpdateProfile from "./UpdateProfile";
 import UpdatePassword from "./UpdatePassword";
 const AccountDetails = () => {
@@ -65,6 +66,25 @@ const AccountDetails = () => {
     setShowSettings(false);
   };
 
+  const [searchActive, setSearchActive] = useState(false);
+  const searchRef = useRef();
+
+  const toggleSearch = (type) => {
+    if (type === "on") {
+      setSearchActive(true);
+      setTimeout(() => {
+        if (searchRef.current) {
+          searchRef.current.focus();
+        }
+      }, 100);
+
+      return;
+    }
+
+    searchRef.current.value = "";
+    setSearchActive(false);
+  };
+
   return (
     <>
       {showSettings && (
@@ -115,6 +135,28 @@ const AccountDetails = () => {
             aria-controls="offcanvasWithBothOptions"
           ></a>
           <ul className="navbar-nav flex-row ms-auto align-items-center justify-content-center">
+            <li className="nav-item nav-icon-hover-bg rounded-circle d-lg-flex">
+              {searchActive ? (
+                <form className="position-relative">
+                  <Input
+                    ref={searchRef}
+                    type="text"
+                    className="form-control-sm py-2 ps-5"
+                    id="text-srh"
+                    placeholder="Search article"
+                    onBlur={() => toggleSearch("off")}
+                  />
+                  <i className="ti ti-search position-absolute top-50 start-0 translate-middle-y fs-6 text-dark ms-3"></i>
+                </form>
+              ) : (
+                <a
+                  onClick={() => toggleSearch("on")}
+                  className="nav-link nav-icon-hover cursor-pointer text-dark"
+                >
+                  <i className="ti ti-search"></i>
+                </a>
+              )}
+            </li>
             <li className="nav-item">
               <a
                 className="nav-link nav-icon-hover cursor-pointer"
