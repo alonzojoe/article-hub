@@ -179,13 +179,24 @@ const AccountDetails = () => {
                 aria-expanded="false"
               >
                 <div className="d-flex align-items-center">
-                  <div className="user-profile-img">
+                  <div className="user-profile-img position-relative">
                     <Avatar
                       className="rounded-circle"
                       width="35"
                       height="35"
                       alt="user"
                     />
+
+                    <i
+                      class="ti ti-chevron-down  bg-dark rounded-circle"
+                      style={{
+                        position: "absolute",
+                        bottom: "14.5px",
+                        right: "-1.5px",
+                        fontSize: "13px",
+                        color: "#fff",
+                      }}
+                    ></i>
                   </div>
                 </div>
               </a>
