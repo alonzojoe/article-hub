@@ -11,7 +11,6 @@ import Modal from "../../components/Modal";
 import useToggle from "../../hooks/useToggle";
 import SkeletonPost from "./Skeletons/SkeletonPost";
 import CommentBox from "./components/Post/CommentBox";
-import SkeletonComments from "./Skeletons/SkeletonComments";
 const Feed = () => {
   const { items, isLoading, error, post, postLoader, postError } = useSelector(
     (state) => state.posts
@@ -54,7 +53,7 @@ const Feed = () => {
       {value && (
         <Modal
           title={viewPostTitle}
-          footer={<CommentBox />}
+          footer={<CommentBox postId={selectedPost.id} />}
           onClose={() => toggle(false)}
         >
           {postLoader ? SkelPost : <SelectedPost post={selectedPost} />}

@@ -36,20 +36,23 @@ const PostEngagements = ({ post, toggle: toggleTrue, onSelect, selected }) => {
 
   return (
     <div className="d-flex align-items-center my-3">
-      <div className="d-flex align-items-center gap-2">
-        <a
-          className={`d-flex align-items-center justify-content-center text-bg-primary p-2 fs-4 rounded-circle ${
-            conditioned ? "pe-none" : ""
-          }`}
-          data-bs-toggle="tooltip"
-          data-bs-placement="top"
-          data-bs-title="Like"
-          onClick={upVote}
-        >
-          <i className={`bx ${voteIcon}`}></i>
-        </a>
-        <span className="text-dark fw-semibold">{currentCount}</span>
-      </div>
+      {!selected && (
+        <div className="d-flex align-items-center gap-2">
+          <a
+            className={`d-flex align-items-center justify-content-center text-bg-primary p-2 fs-4 rounded-circle ${
+              conditioned ? "pe-none" : ""
+            }`}
+            data-bs-toggle="tooltip"
+            data-bs-placement="top"
+            data-bs-title="Like"
+            onClick={upVote}
+          >
+            <i className={`bx ${voteIcon}`}></i>
+          </a>
+          <span className="text-dark fw-semibold">{currentCount}</span>
+        </div>
+      )}
+
       {!selected && (
         <div className="d-flex align-items-center gap-2 ms-4">
           <a
@@ -61,7 +64,7 @@ const PostEngagements = ({ post, toggle: toggleTrue, onSelect, selected }) => {
           >
             <i className="bx bx-message-alt-detail"></i>
           </a>
-          <span className="text-dark fw-semibold">{post.comments.length}</span>
+          {/* <span className="text-dark fw-semibold">{post.comments.length}</span> */}
         </div>
       )}
       <a

@@ -1,7 +1,13 @@
 import Avatar from "../../../../components/Avatar";
 import Input from "../../../../components/Input";
 import { useForm } from "react-hook-form";
-const CommentBox = () => {
+import useApi from "../../../../hooks/useApi";
+import { useDispatch, useSelector } from "react-redux";
+import toast from "react-hot-toast";
+import { getPost } from "../../../../store/thunks/postsThunks";
+const CommentBox = ({ postId }) => {
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
   const {
     register,
     handleSubmit,
@@ -9,8 +15,32 @@ const CommentBox = () => {
     reset,
   } = useForm();
 
-  const submitComment = (data) => {
+  const onSuccess = (data) => {
+    toast.success("Comment Added");
+    dispatch(getPost(postId));
+  };
+
+  const onFailure = (error) => {
+    toast.error("Snap :(, Something went wrong");
+  };
+
+  const { isLoading, error, callApi } = useApi({
+    url: "/cast/comment",
+    method: "POST",
+    onSuccess,
+    onFailure,
+  });
+
+  const submitComment = async (data) => {
     console.log("comment", data.comment);
+
+    const formData = {
+      article_id: postId,
+      text: data.comment,
+      user_id: user?.id,
+    };
+
+    await callApi(formData);
   };
 
   return (
@@ -37,7 +67,9 @@ const CommentBox = () => {
         id="comment-box"
         placeholder="Comment"
       />
-      <button className="btn btn-primary btn">Comment</button>
+      <button className="btn btn-primary btn" disabled={isSubmitting}>
+        Comment
+      </button>
     </form>
   );
 };

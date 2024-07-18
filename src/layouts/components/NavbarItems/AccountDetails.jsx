@@ -188,7 +188,7 @@ const AccountDetails = () => {
                     />
 
                     <i
-                      class="ti ti-chevron-down  bg-dark rounded-circle"
+                      className="ti ti-chevron-down  bg-dark rounded-circle"
                       style={{
                         position: "absolute",
                         bottom: "14.5px",
