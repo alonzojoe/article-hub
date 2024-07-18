@@ -41,6 +41,7 @@ const CommentBox = ({ postId }) => {
     };
 
     await callApi(formData);
+    reset()
   };
 
   return (

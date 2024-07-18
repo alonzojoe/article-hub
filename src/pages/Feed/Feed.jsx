@@ -56,7 +56,8 @@ const Feed = () => {
           footer={<CommentBox postId={selectedPost.id} />}
           onClose={() => toggle(false)}
         >
-          {postLoader ? SkelPost : <SelectedPost post={selectedPost} />}
+          {/* {postLoader ? SkelPost : <SelectedPost post={selectedPost} />} */}
+          <SelectedPost post={selectedPost} />
         </Modal>
       )}
       <FeedContainer>

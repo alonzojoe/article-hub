@@ -1,11 +1,10 @@
 import PostComments from "./PostComments";
 import CommentBox from "./CommentBox";
+import SkeletonComments from "../../Skeletons/SkeletonComments";
+import { useSelector } from "react-redux";
 const CommentSection = () => {
-  return (
-    <>
-      <PostComments />
-    </>
-  );
+  const { postLoader } = useSelector((state) => state.posts);
+  return <>{postLoader ? <SkeletonComments /> : <PostComments />}</>;
 };
 
 export default CommentSection;
