@@ -2,9 +2,9 @@ import Card from "../../../../components/Card";
 import PostHeader from "./PostHeader";
 import PostBody from "./PostBody";
 import PostEngagements from "./PostEngagements";
-const Post = ({ post, toggle, onSelect }) => {
+const Post = ({ targetClass, post, toggle, onSelect }) => {
   return (
-    <Card>
+    <Card className={targetClass}>
       <PostHeader post={post} />
       <PostBody post={post} />
       <PostEngagements toggle={toggle} post={post} onSelect={onSelect} />

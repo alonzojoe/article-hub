@@ -47,6 +47,16 @@ const Feed = () => {
     </>
   );
 
+  // if (!isLoading && items.length > 0) {
+  //   const cards = document.querySelectorAll(".card-post");
+
+  //   const observer = new IntersectionObserver((entries) => {
+  //     console.log("entry", entries);
+  //   });
+
+  //   observer.observe(cards[0]);
+  // }
+
   return (
     <>
       {isLoading && <FeedSpinner />}
@@ -65,6 +75,7 @@ const Feed = () => {
         {!isLoading ? (
           items.map((post) => (
             <Post
+              targetClass="card-post"
               key={post.id}
               toggle={() => viewComments(post.id)}
               post={post}
