@@ -41,7 +41,7 @@ const CommentBox = ({ postId }) => {
     };
 
     await callApi(formData);
-    reset()
+    reset();
   };
 
   return (
@@ -66,7 +66,7 @@ const CommentBox = ({ postId }) => {
         type="text"
         className={`form-control-sm py-8 ${errors.comment ? "is-invalid" : ""}`}
         id="comment-box"
-        placeholder="Comment"
+        placeholder={`Comment as ${user?.name}`}
       />
       <button className="btn btn-primary btn" disabled={isSubmitting}>
         Comment
