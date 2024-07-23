@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import Logo from "../../components/Logo";
 import AccountDetails from "./NavbarItems/AccountDetails";
 import NavContainer from "./NavbarItems/NavContainer";
+import Input from "../../components/Input";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { fetchPosts } from "../../store/thunks/postsThunks";
@@ -14,6 +15,26 @@ const Navbar = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
     dispatch(fetchPosts());
   };
+
+  const [searchActive, setSearchActive] = useState(false);
+  const searchRef = useRef();
+
+  const toggleSearch = (type) => {
+    if (type === "on") {
+      setSearchActive(true);
+      setTimeout(() => {
+        if (searchRef.current) {
+          searchRef.current.focus();
+        }
+      }, 100);
+
+      return;
+    }
+
+    searchRef.current.value = "";
+    setSearchActive(false);
+  };
+
   return (
     <NavContainer>
       <ul className="navbar-nav">

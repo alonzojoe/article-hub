@@ -11,6 +11,7 @@ import Modal from "../../components/Modal";
 import useToggle from "../../hooks/useToggle";
 import SkeletonPost from "./Skeletons/SkeletonPost";
 import CommentBox from "./components/Post/CommentBox";
+import { useSearchParams } from "react-router-dom";
 const Feed = () => {
   const { items, isLoading, error, post, postLoader, postError } = useSelector(
     (state) => state.posts
@@ -19,9 +20,14 @@ const Feed = () => {
   const [selectedPost, setSelectedPost] = useState(null);
   const [value, toggle] = useToggle(false);
   const viewPostTitle = `${selectedPost?.user?.name}'s Post`;
+
+  const [searchParams] = useSearchParams();
+
+  const query = searchParams.get("query") || "";
+
   useEffect(() => {
     const timer = setTimeout(() => {
-      dispatch(fetchPosts());
+      dispatch(fetchPosts({ search: query }));
     }, 500);
     return () => clearTimeout(timer);
   }, [dispatch]);

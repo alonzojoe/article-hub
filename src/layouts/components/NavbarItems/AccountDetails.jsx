@@ -85,6 +85,14 @@ const AccountDetails = () => {
     setSearchActive(false);
   };
 
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchRef.current.value.trim() === "") return;
+    window.location.href = `/?query=${encodeURIComponent(
+      searchRef.current.value
+    )}`;
+  };
+
   return (
     <>
       {showSettings && (
@@ -137,7 +145,7 @@ const AccountDetails = () => {
           <ul className="navbar-nav flex-row ms-auto align-items-center justify-content-center">
             <li className="nav-item nav-icon-hover-bg rounded-circle d-lg-flex">
               {searchActive ? (
-                <form className="position-relative">
+                <form onSubmit={handleSearch} className="position-relative">
                   <Input
                     ref={searchRef}
                     type="text"
