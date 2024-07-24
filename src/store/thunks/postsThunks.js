@@ -3,7 +3,7 @@ import api from "../../services/api";
 import { formatPostDate } from "../../utils/dates";
 export const fetchPosts = createAsyncThunk("fetchPosts", async (params) => {
   const response = await api.get("/article", {
-    params: { ...params, page: 1 },
+    params,
   });
   const posts = response.data.data.map((article) => {
     return {

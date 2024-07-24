@@ -12,6 +12,11 @@ const postsSlice = createSlice({
     postLoader: false,
     postError: null,
   },
+  reducers: {
+    setPost(state) {
+      state.items = [];
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchPosts.pending, (state) => {
@@ -52,4 +57,5 @@ const postsSlice = createSlice({
   },
 });
 
+export const postActions = postsSlice.actions;
 export default postsSlice;

@@ -7,13 +7,15 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { fetchPosts } from "../../store/thunks/postsThunks";
 import { useNavigate } from "react-router-dom";
+import { postActions } from "../../store/slices/postSlice";
 const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const refreshData = async () => {
     navigate("/");
+    dispatch(postActions.setPost());
     window.scrollTo({ top: 0, behavior: "smooth" });
-    dispatch(fetchPosts());
+    dispatch(fetchPosts({ search: "", page: 1 }));
   };
 
   const [searchActive, setSearchActive] = useState(false);
