@@ -12,6 +12,7 @@ import Modal from "../../components/Modal";
 import useToggle from "../../hooks/useToggle";
 import SkeletonPost from "./Skeletons/SkeletonPost";
 import CommentBox from "./components/Post/CommentBox";
+import ScrollLoader from './Skeletons/ScrollLoader'
 import { useSearchParams } from "react-router-dom";
 const Feed = () => {
   const { items, isLoading, error, post, postLoader, postError } = useSelector(
@@ -93,6 +94,7 @@ const Feed = () => {
         ) : (
           <SkeletonPosts />
         )}
+        <ScrollLoader withComments={false} />
         <CaughtUp />
       </FeedContainer>
     </>

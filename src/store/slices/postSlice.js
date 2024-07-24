@@ -20,7 +20,7 @@ const postsSlice = createSlice({
       .addCase(fetchPosts.fulfilled, (state, actions) => {
         console.log("actions", actions.payload);
         state.isLoading = false;
-        state.items = actions.payload.data;
+        state.items = [...state.items, ...actions.payload.data];
         state.lastPage = actions.payload.lastPage;
       })
       .addCase(fetchPosts.rejected, (state, actions) => {

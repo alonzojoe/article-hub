@@ -1,6 +1,6 @@
 import Card from "../../../components/Card";
 import SkeletonComments from "./SkeletonComments";
-const SkeletonPost = () => {
+const SkeletonPost = ({ withComments }) => {
   return (
     <Card>
       <div className="d-flex align-items-center gap-3 h5 placeholder-glow">
@@ -47,7 +47,7 @@ const SkeletonPost = () => {
           <span className="placeholder rounded col-6"></span>
         </div>
       </div>
-      <SkeletonComments />
+      {withComments && <SkeletonComments />}
     </Card>
   );
 };
