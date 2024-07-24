@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import CaughtUp from "./components/Post/CaughtUp";
 import FeedContainer from "./components/FeedContainer";
 import CreatePost from "./components/NewPost/CreatePost";
 import SelectedPost from "./components/Post/SelectedPost";
@@ -92,6 +93,7 @@ const Feed = () => {
         ) : (
           <SkeletonPosts />
         )}
+        <CaughtUp />
       </FeedContainer>
     </>
   );
