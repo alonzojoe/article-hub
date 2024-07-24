@@ -1,9 +1,10 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 import { fetchPosts, getPost, fetchUserPosts } from "../thunks/postsThunks";
 
 const postsSlice = createSlice({
   name: "posts",
   initialState: {
+    currentPage: 1,
     items: [],
     isLoading: false,
     error: null,
@@ -15,6 +16,12 @@ const postsSlice = createSlice({
   reducers: {
     setPost(state) {
       state.items = [];
+    },
+    resetCurrentPage(state) {
+      state.currentPage = 1;
+    },
+    incrementCurrentPage(state) {
+      state.currentPage += 1;
     },
   },
   extraReducers(builder) {

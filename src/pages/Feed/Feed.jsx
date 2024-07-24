@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CaughtUp from "./components/Post/CaughtUp";
 import FeedContainer from "./components/FeedContainer";
@@ -10,15 +10,15 @@ import { fetchPosts } from "../../store/thunks/postsThunks";
 import FeedSpinner from "../../components/FeedSpinner";
 import Modal from "../../components/Modal";
 import useToggle from "../../hooks/useToggle";
-import SkeletonPost from "./Skeletons/SkeletonPost";
 import CommentBox from "./components/Post/CommentBox";
 import ScrollLoader from "./Skeletons/ScrollLoader";
 import { useSearchParams } from "react-router-dom";
+import { postActions } from "../../store/slices/postSlice";
 const Feed = () => {
-  const { items, isLoading, error, lastPage } = useSelector(
+  const { items, isLoading, error, lastPage, currentPage } = useSelector(
     (state) => state.posts
   );
-  const [currentPage, setCurrentPage] = useState(1);
+
   const dispatch = useDispatch();
   const [selectedPost, setSelectedPost] = useState(null);
   const [value, toggle] = useToggle(false);
@@ -27,36 +27,39 @@ const Feed = () => {
   const [searchParams] = useSearchParams();
 
   const query = searchParams.get("query") || "";
-  const [initialLoad, setInitialLoad] = useState(false);
+
   useEffect(() => {
-    setInitialLoad(true);
     const timer = setTimeout(() => {
       dispatch(fetchPosts({ search: query, page: currentPage }));
-      setInitialLoad(false);
     }, 500);
     return () => clearTimeout(timer);
   }, [dispatch]);
 
-  // const handleScroll = () => {
-  //   if (
-  //     window.innerHeight + document.documentElement.scrollTop !==
-  //       document.documentElement.offsetHeight ||
-  //     isLoading
-  //   ) {
-  //     return;
-  //   }
+  const observerTarget = useRef(null);
 
-  //   if (page !== lastPage) {
-  //     const nextPage = currentPage + 1;
-  //     setCurrentPage(nextPage);
-  //     dispatch(fetchPosts({ search: query, page: nextPage }));
-  //   }
-  // };
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && currentPage !== lastPage) {
+          console.log("observer is intersecting");
+          const nextPage = currentPage + 1;
+          dispatch(fetchPosts({ search: query, page: nextPage }));
+          dispatch(postActions.incrementCurrentPage());
+        }
+      },
+      { threshold: 0.25 }
+    );
 
-  // useEffect(() => {
-  //   window.addEventListener("scroll", handleScroll);
-  //   return () => window.removeEventListener("scroll", handleScroll);
-  // }, [isLoading]);
+    if (observerTarget.current) {
+      observer.observe(observerTarget.current);
+    }
+
+    return () => {
+      if (observerTarget.current) {
+        observer.unobserve(observerTarget.current);
+      }
+    };
+  }, [observerTarget, currentPage]);
 
   let errorMessage;
   if (error) {
@@ -75,7 +78,7 @@ const Feed = () => {
 
   return (
     <>
-      {initialLoad && <FeedSpinner />}
+      {isLoading && <FeedSpinner />}
       {value && (
         <Modal
           title={viewPostTitle}
@@ -89,7 +92,7 @@ const Feed = () => {
       <FeedContainer>
         <CreatePost />
         {errorMessage}
-        {!initialLoad ? (
+        {items.length > 0 &&
           items.map((post) => (
             <Post
               targetClass="card-post"
@@ -98,13 +101,14 @@ const Feed = () => {
               post={post}
               onSelect={() => setSelectedPost(post)}
             />
-          ))
-        ) : (
-          <SkeletonPosts />
-        )}
+          ))}
         {isLoading && <ScrollLoader withComments={false} />}
         {currentPage === lastPage && <CaughtUp />}
         {currentPage}
+
+        {items.length > 0 && (
+          <div ref={observerTarget} style={{ height: "50px" }}></div>
+        )}
       </FeedContainer>
     </>
   );

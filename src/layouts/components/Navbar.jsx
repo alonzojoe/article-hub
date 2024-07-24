@@ -2,9 +2,8 @@ import React, { useState, useRef } from "react";
 import Logo from "../../components/Logo";
 import AccountDetails from "./NavbarItems/AccountDetails";
 import NavContainer from "./NavbarItems/NavContainer";
-import Input from "../../components/Input";
-import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { fetchPosts } from "../../store/thunks/postsThunks";
 import { useNavigate } from "react-router-dom";
 import { postActions } from "../../store/slices/postSlice";
@@ -13,6 +12,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const refreshData = async () => {
     navigate("/");
+    dispatch(postActions.resetCurrentPage());
     dispatch(postActions.setPost());
     window.scrollTo({ top: 0, behavior: "smooth" });
     dispatch(fetchPosts({ search: "", page: 1 }));
