@@ -88,9 +88,9 @@ const AccountDetails = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchRef.current.value.trim() === "") return;
-    window.location.href = `/?query=${encodeURIComponent(
-      searchRef.current.value
-    )}`;
+    window.location.href = `/?${
+      import.meta.env.VITE_SEARCH_KEYWORD
+    }=${encodeURIComponent(searchRef.current.value)}`;
   };
 
   return (

@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router-dom";
 const SearchNotFound = () => {
   const [searchParams] = useSearchParams();
 
-  const keyword = searchParams.get("query");
+  const keyword = searchParams.get(`${import.meta.env.VITE_SEARCH_KEYWORD}`);
 
   const message = (
     <u>

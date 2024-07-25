@@ -26,7 +26,8 @@ const Feed = () => {
 
   const [searchParams] = useSearchParams();
 
-  const query = searchParams.get("query") || "";
+  const query =
+    searchParams.get(`${import.meta.env.VITE_SEARCH_KEYWORD}`) || "";
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -106,7 +107,7 @@ const Feed = () => {
         {items.length > 0 && (
           <div ref={observerTarget} style={{ height: "50px" }}></div>
         )}
-        {query !== "" && items.length === 0 && <SearchNotFound />}
+        {!isLoading && query !== "" && items.length === 0 && <SearchNotFound />}
         {currentPage === lastPage && items.length > 0 && <CaughtUp />}
       </FeedContainer>
     </>
