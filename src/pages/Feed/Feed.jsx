@@ -1,11 +1,11 @@
 import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CaughtUp from "./components/Post/CaughtUp";
+import SearchNotFound from "./components/Post/SearchNotFound";
 import FeedContainer from "./components/FeedContainer";
 import CreatePost from "./components/NewPost/CreatePost";
 import SelectedPost from "./components/Post/SelectedPost";
 import Post from "./components/Post/Post";
-import SkeletonPosts from "./Skeletons/SkeletonPosts";
 import { fetchPosts } from "../../store/thunks/postsThunks";
 import FeedSpinner from "../../components/FeedSpinner";
 import Modal from "../../components/Modal";
@@ -59,7 +59,7 @@ const Feed = () => {
         observer.unobserve(observerTarget.current);
       }
     };
-  }, [observerTarget, currentPage]);
+  }, [dispatch, observerTarget, currentPage, query, lastPage]);
 
   let errorMessage;
   if (error) {
@@ -103,12 +103,11 @@ const Feed = () => {
             />
           ))}
         {isLoading && <ScrollLoader withComments={false} />}
-        {currentPage === lastPage && <CaughtUp />}
-        {currentPage}
-
         {items.length > 0 && (
           <div ref={observerTarget} style={{ height: "50px" }}></div>
         )}
+        {query !== "" && items.length === 0 && <SearchNotFound />}
+        {currentPage === lastPage && items.length > 0 && <CaughtUp />}
       </FeedContainer>
     </>
   );
