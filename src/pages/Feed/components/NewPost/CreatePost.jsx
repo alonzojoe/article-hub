@@ -146,11 +146,11 @@ const CreatePost = () => {
             </div>
             <div className="mb-3">
               <Input
+                {...register("title")}
                 className={`${errors.title ? "is-invalid" : ""}`}
                 ref={setTitleRef}
                 type="text"
                 placeholder="Article Title"
-                {...register("title")}
               />
             </div>
             <div className="mb-3">
