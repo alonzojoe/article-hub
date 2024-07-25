@@ -33,7 +33,7 @@ const UpdateProfile = ({ user, onClose }) => {
     try {
       const formData = new FormData();
       formData.append("name", data.name);
-      if(selectFile) formData.append("profile", selectedFile);
+      if (selectedFile) formData.append("profile", selectedFile);
       formData.append("_method", "PATCH");
 
       const response = await api.post(`/auth/update/${user.id}`, formData, {
