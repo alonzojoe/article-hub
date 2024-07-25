@@ -1,9 +1,9 @@
 import React, { useState, useRef } from "react";
 import Logo from "../../components/Logo";
+import Input from "../../components/Input";
 import AccountDetails from "./NavbarItems/AccountDetails";
 import NavContainer from "./NavbarItems/NavContainer";
 import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
 import { fetchPosts } from "../../store/thunks/postsThunks";
 import { useNavigate } from "react-router-dom";
 import { postActions } from "../../store/slices/postSlice";
@@ -50,19 +50,32 @@ const Navbar = () => {
           </a>
         </li>
       </ul>
-      <button
-        className="navbar-toggler p-0 border-0"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarNav"
-        aria-controls="navbarNav"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span className="p-2">
-          <i className="ti ti-dots fs-7"></i>
-        </span>
-      </button>
+
+      <div className="d-flex gap-2">
+        <form className="position-relative">
+          <Input
+            type="text"
+            className="form-control-sm py-2 ps-5"
+            id="text-srh"
+            placeholder="Search article"
+          />
+          <i className="ti ti-search position-absolute top-50 start-0 translate-middle-y fs-6 text-dark ms-3"></i>
+        </form>
+        <button
+          className="navbar-toggler p-0 border-0"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="p-2">
+            <i className="ti ti-dots fs-7"></i>
+          </span>
+        </button>
+      </div>
+
       <AccountDetails />
     </NavContainer>
   );
