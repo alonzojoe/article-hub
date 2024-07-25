@@ -50,9 +50,26 @@ const Navbar = () => {
           </a>
         </li>
       </ul>
+      <div>
+        <ul
+          className="nav nav-pills user-profile-tab"
+          id="pills-tab"
+          role="tablist"
+        >
+          <li className="nav-item" role="presentation">
+            <button
+              className={`nav-link position-relative rounded-0 d-flex align-items-center justify-content-center bg-transparent fs-3 py-3 active`}
+              type="button"
+            >
+              <i className={`ti ti-home me-2 fs-6`}></i>
+              <span className="d-none d-md-block">Home</span>
+            </button>
+          </li>
+        </ul>
+      </div>
 
       <div className="d-flex gap-2">
-        <form className="position-relative">
+        <form className="position-relative d-none">
           <Input
             type="text"
             className="form-control-sm py-2 ps-5"
