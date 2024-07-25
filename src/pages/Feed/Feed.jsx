@@ -41,7 +41,11 @@ const Feed = () => {
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting && currentPage !== lastPage) {
+        if (
+          entries[0].isIntersecting &&
+          currentPage !== lastPage &&
+          currentPage !== 1
+        ) {
           console.log("observer is intersecting");
           const nextPage = currentPage + 1;
           dispatch(fetchPosts({ search: query, page: nextPage }));
