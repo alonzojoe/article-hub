@@ -31,6 +31,8 @@ const Feed = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
+      console.log("component mounted fetchPost");
+      dispatch(postActions.setPost());
       dispatch(fetchPosts({ search: query, page: currentPage }));
     }, 500);
     return () => clearTimeout(timer);
@@ -43,6 +45,7 @@ const Feed = () => {
       (entries) => {
         if (entries[0].isIntersecting && currentPage !== lastPage) {
           console.log("observer is intersecting");
+          console.log("intersection observer observing fetchPost");
           const nextPage = currentPage + 1;
           dispatch(fetchPosts({ search: query, page: nextPage }));
           dispatch(postActions.incrementCurrentPage());

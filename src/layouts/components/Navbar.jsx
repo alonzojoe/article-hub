@@ -7,11 +7,16 @@ import { useDispatch } from "react-redux";
 import { fetchPosts } from "../../store/thunks/postsThunks";
 import { useNavigate } from "react-router-dom";
 import { postActions } from "../../store/slices/postSlice";
+import { useLocation } from "react-router-dom";
 const Navbar = () => {
+  const location = useLocation();
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const refreshData = async () => {
     navigate("/");
+    console.log("route details", location);
+    if (location.pathname !== "/") return;
     dispatch(postActions.resetCurrentPage());
     dispatch(postActions.setPost());
     window.scrollTo({ top: 0, behavior: "smooth" });
