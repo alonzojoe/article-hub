@@ -32,8 +32,10 @@ const Feed = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       console.log("component mounted fetchPost");
+
       dispatch(postActions.setPost());
-      dispatch(fetchPosts({ search: query, page: currentPage }));
+      dispatch(fetchPosts({ search: query, page: 1 }));
+      dispatch(postActions.resetCurrentPage());
     }, 500);
     return () => clearTimeout(timer);
   }, [dispatch]);

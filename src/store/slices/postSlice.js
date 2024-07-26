@@ -23,6 +23,33 @@ const postsSlice = createSlice({
     incrementCurrentPage(state) {
       state.currentPage += 1;
     },
+    upVote(state, actions) {
+      const selectedItem = actions.payload.voteDetails;
+      const postIndex = state.items.findIndex(
+        (item) => item.id === selectedItem.postId
+      );
+
+      if (postIndex !== -1) state.items[postIndex].votes.push(selectedItem);
+    },
+    downVote(state, actions) {
+      const selectedItem = actions.payload.voteDetails;
+      const postIndex = state.items.findIndex(
+        (item) => item.id === selectedItem.postId
+      );
+
+      if (postIndex !== -1)
+        state.items[postIndex].votes.filter(
+          (vote) => vote.user_id !== selectedItem.user_id
+        );
+    },
+    addComments(state, actions) {
+      const selectedItem = actions.payload.commentDetails;
+      const postIndex = state.items.findIndex(
+        (item) => item.id === selectedItem.postId
+      );
+
+      if (postIndex !== -1) state.items[postIndex].comments.push(selectedItem);
+    }
   },
   extraReducers(builder) {
     builder

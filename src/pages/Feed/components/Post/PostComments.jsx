@@ -15,13 +15,13 @@ const PostComments = (props) => {
           >
             <div className="d-flex align-items-center gap-3">
               <img
-                src={comment.user.profile_url}
+                src={comment?.user?.profile_url || defaultProfile}
                 alt=""
                 className="rounded-circle"
                 width="33"
                 height="33"
               />
-              <h6 className="fw-semibold mb-0 fs-4">{post.user.name}</h6>
+              <h6 className="fw-semibold mb-0 fs-4">{comment?.user?.name}</h6>
               <span className="fs-2">
                 <span className="p-1 text-bg-muted rounded-circle d-inline-block"></span>{" "}
                 {comment.created_at}
