@@ -26,7 +26,6 @@ const PostHeader = ({ post }) => {
         <div className="dropdown">
           <a
             className="show"
-            href="javascript:void(0)"
             id="m1"
             data-bs-toggle="dropdown"
             aria-expanded="false"
@@ -45,7 +44,7 @@ const PostHeader = ({ post }) => {
             }}
           >
             <li>
-              <a className="dropdown-item" href="javascript:void(0)">
+              <a className="dropdown-item">
                 <i className="ti ti-trash text-danger me-1 fs-5"></i>
                 <span className="text-danger">Delete</span>
               </a>

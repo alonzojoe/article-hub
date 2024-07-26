@@ -41,18 +41,14 @@ const Feed = () => {
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        if (
-          entries[0].isIntersecting &&
-          currentPage !== lastPage &&
-          currentPage !== 1
-        ) {
+        if (entries[0].isIntersecting && currentPage !== lastPage) {
           console.log("observer is intersecting");
           const nextPage = currentPage + 1;
           dispatch(fetchPosts({ search: query, page: nextPage }));
           dispatch(postActions.incrementCurrentPage());
         }
       },
-      { threshold: 0.25 }
+      { threshold: 1 }
     );
 
     if (observerTarget.current) {
@@ -83,7 +79,7 @@ const Feed = () => {
 
   return (
     <>
-      {isLoading && <FeedSpinner />}
+      {isLoading && items.length === 0 && <FeedSpinner />}
       {value && (
         <Modal
           title={viewPostTitle}
@@ -108,9 +104,9 @@ const Feed = () => {
             />
           ))}
         {isLoading && <ScrollLoader withComments={false} />}
-        {items.length > 0 && (
-          <div ref={observerTarget} style={{ height: "50px" }}></div>
-        )}
+
+        <div ref={observerTarget} style={{ height: "50px" }}></div>
+
         {!isLoading && query !== "" && items.length === 0 && <SearchNotFound />}
         {currentPage === lastPage && items.length > 0 && <CaughtUp />}
       </FeedContainer>
