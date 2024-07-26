@@ -105,7 +105,10 @@ const Feed = () => {
           ))}
         {isLoading && <ScrollLoader withComments={false} />}
 
-        <div ref={observerTarget} style={{ height: "50px" }}></div>
+        <div
+          ref={observerTarget}
+          style={{ height: "50px", display: `${isLoading ? "none" : "block"}` }}
+        ></div>
 
         {!isLoading && query !== "" && items.length === 0 && <SearchNotFound />}
         {currentPage === lastPage && items.length > 0 && <CaughtUp />}
