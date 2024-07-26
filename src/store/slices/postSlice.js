@@ -43,13 +43,8 @@ const postsSlice = createSlice({
         );
     },
     addComments(state, actions) {
-      const selectedItem = actions.payload.commentDetails;
-      const postIndex = state.items.findIndex(
-        (item) => item.id === selectedItem.postId
-      );
-
-      if (postIndex !== -1) state.items[postIndex].comments.push(selectedItem);
-    }
+      state.post.comments.push(actions.payload.comment);
+    },
   },
   extraReducers(builder) {
     builder
