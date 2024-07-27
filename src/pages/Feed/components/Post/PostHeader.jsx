@@ -1,7 +1,6 @@
 import defaultProfile from "../../../../assets/images/avatars/user-default.jpg";
 import { useSelector } from "react-redux";
 const PostHeader = ({ post }) => {
-  console.log("postheader", post);
   const { user } = useSelector((state) => state.auth);
 
   const postAvatar = post?.user?.profile_url || defaultProfile;
