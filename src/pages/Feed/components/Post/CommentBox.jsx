@@ -5,6 +5,9 @@ import useApi from "../../../../hooks/useApi";
 import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import { getPost } from "../../../../store/thunks/postsThunks";
+import { postActions } from "../../../../store/slices/postSlice";
+import { formatPostDate } from "../../../../utils/dates";
+import moment from "moment";
 const CommentBox = ({ postId }) => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
@@ -34,13 +37,27 @@ const CommentBox = ({ postId }) => {
   const submitComment = async (data) => {
     console.log("comment", data.comment);
 
-    const formData = {
+    // const formData = {
+    //   article_id: postId,
+    //   text: data.comment,
+    //   user_id: user?.id,
+    // };
+    const dateNow = moment().toISOString();
+    const commentDetails = {
       article_id: postId,
+      created_at: dateNow,
+      id: Date.now(),
       text: data.comment,
-      user_id: user?.id,
+      updated_at: dateNow,
+      user,
+      user_id: user.id,
     };
 
-    await callApi(formData);
+    dispatch(postActions.addComments({ comment: commentDetails }));
+
+    console.log("commentDetails", commentDetails);
+
+    // await callApi(formData);
     reset();
   };
 

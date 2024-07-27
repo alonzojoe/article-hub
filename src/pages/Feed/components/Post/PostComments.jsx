@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import defaultProfile from "../../../../assets/images/avatars/user-default.jpg";
-
+import { formatPostDate } from "../../../../utils/dates";
 const PostComments = (props) => {
   const { post } = useSelector((state) => state.posts);
   const userAvatar = post.user.photo_url ?? defaultProfile;
@@ -24,7 +24,7 @@ const PostComments = (props) => {
               <h6 className="fw-semibold mb-0 fs-4">{comment?.user?.name}</h6>
               <span className="fs-2">
                 <span className="p-1 text-bg-muted rounded-circle d-inline-block"></span>{" "}
-                {comment.created_at}
+                {formatPostDate(comment.created_at)}
               </span>
             </div>
             <p className="my-1">{comment.text}</p>

@@ -43,7 +43,7 @@ const postsSlice = createSlice({
         );
     },
     addComments(state, actions) {
-      state.post.comments.push(actions.payload.comment);
+      state.post.comments.unshift(actions.payload.comment);
     },
   },
   extraReducers(builder) {
