@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import Label from "../../../components/Label";
 import Input from "../../../components/Input";
 import Button from "../../../components/Button";
@@ -22,6 +22,13 @@ const authSchema = z.object({
 });
 
 const AuthLogin = ({ changeSection }) => {
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
   const {
     register,
     handleSubmit,
