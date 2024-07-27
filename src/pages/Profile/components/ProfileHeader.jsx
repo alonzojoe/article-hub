@@ -4,7 +4,7 @@ import Avatar from "../../../components/Avatar";
 import { useSelector } from "react-redux";
 const ProfileHeader = () => {
   const { user } = useSelector((state) => state.auth);
-
+  // const
   return (
     <Card className="overflow-hidden">
       <img src={profileBg} alt="profile-bg" className="img-fluid" />
@@ -84,9 +84,6 @@ const ProfileHeader = () => {
                 <i className="ti ti-brand-youtube"></i>
               </a>
             </li> */}
-            <li>
-              <button className="btn btn-primary">Create New Article</button>
-            </li>
           </ul>
         </div>
       </div>

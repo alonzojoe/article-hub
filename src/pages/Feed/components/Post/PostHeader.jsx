@@ -1,7 +1,15 @@
 import defaultProfile from "../../../../assets/images/avatars/user-default.jpg";
 import { useSelector } from "react-redux";
+import { encryptData } from "../../../../utils/enc";
+import { useNavigate } from "react-router-dom";
 const PostHeader = ({ post }) => {
   const { user } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+  const viewProfile = (id) => {
+    const user = encodeURIComponent(encryptData(id));
+    console.log(user);
+    navigate(`/profile/${user}`);
+  };
 
   const postAvatar = post?.user?.profile_url || defaultProfile;
   return (
@@ -10,9 +18,10 @@ const PostHeader = ({ post }) => {
         <img
           src={postAvatar}
           alt=""
-          className="rounded-circle"
+          className="rounded-circle cursor-pointer"
           width="40"
           height="40"
+          onClick={() => viewProfile(post?.user?.id)}
         />
         <h6 className="fw-semibold mb-0 fs-4">{post.user.name}</h6>
         <span className="fs-2">
