@@ -20,7 +20,7 @@ const CommentBox = ({ postId }) => {
 
   const onSuccess = (data) => {
     toast.success("Comment Added");
-    dispatch(getPost(postId));
+    // dispatch(getPost(postId));
   };
 
   const onFailure = (error) => {
@@ -37,11 +37,12 @@ const CommentBox = ({ postId }) => {
   const submitComment = async (data) => {
     console.log("comment", data.comment);
 
-    // const formData = {
-    //   article_id: postId,
-    //   text: data.comment,
-    //   user_id: user?.id,
-    // };
+    const formData = {
+      article_id: postId,
+      text: data.comment,
+      user_id: user?.id,
+    };
+
     const dateNow = moment().toISOString();
     const commentDetails = {
       article_id: postId,
@@ -57,7 +58,7 @@ const CommentBox = ({ postId }) => {
 
     console.log("commentDetails", commentDetails);
 
-    // await callApi(formData);
+    await callApi(commentDetails);
     reset();
   };
 
