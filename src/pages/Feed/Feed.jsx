@@ -48,8 +48,7 @@ const Feed = () => {
         if (
           entries[0].isIntersecting &&
           currentPage !== lastPage &&
-          items.length > 0 &&
-          !isLoading
+          items.length > 0
         ) {
           console.log("observer is intersecting");
           console.log("intersection observer observing fetchPost");
@@ -70,7 +69,7 @@ const Feed = () => {
         observer.unobserve(observerTarget.current);
       }
     };
-  }, [dispatch, observerTarget, currentPage, query, lastPage]);
+  }, [dispatch, observerTarget, currentPage, query, lastPage, items.length]);
 
   let errorMessage;
   if (error) {
