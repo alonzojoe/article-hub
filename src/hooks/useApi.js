@@ -6,7 +6,7 @@ const useApi = ({
   onSuccess = () => {},
   onFailure = () => {},
 }) => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const callApi = useCallback(
