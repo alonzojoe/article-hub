@@ -74,7 +74,7 @@ const UpdateProfile = ({ user, onClose }) => {
             <div className="text-center">
               <img
                 src={getProfileImageSrc()}
-                alt="modernize-img"
+                alt="profile"
                 className="img-fluid rounded-circle"
                 width="120"
                 height="120"
