@@ -24,23 +24,32 @@ const postsSlice = createSlice({
       state.currentPage += 1;
     },
     upVote(state, actions) {
-      const selectedItem = actions.payload.voteDetails;
+      const { voteDetails } = actions.payload;
       const postIndex = state.items.findIndex(
-        (item) => item.id === selectedItem.postId
+        (item) => item.id === voteDetails.article_id
       );
 
-      if (postIndex !== -1) state.items[postIndex].votes.push(selectedItem);
+      if (postIndex !== -1) {
+        const existingVoteIndex = state.items[postIndex].votes.findIndex(
+          (vote) => vote.user_id === voteDetails.user_id
+        );
+
+        if (existingVoteIndex === -1) {
+          state.items[postIndex].votes.push(voteDetails);
+        }
+      }
     },
     downVote(state, actions) {
-      const selectedItem = actions.payload.voteDetails;
+      const { voteDetails } = actions.payload;
       const postIndex = state.items.findIndex(
-        (item) => item.id === selectedItem.postId
+        (item) => item.id === voteDetails.article_id
       );
 
-      if (postIndex !== -1)
-        state.items[postIndex].votes.filter(
-          (vote) => vote.user_id !== selectedItem.user_id
+      if (postIndex !== -1) {
+        state.items[postIndex].votes = state.items[postIndex].votes.filter(
+          (vote) => vote.user_id !== voteDetails.user_id
         );
+      }
     },
     addComments(state, actions) {
       state.post.comments.unshift(actions.payload.comment);
