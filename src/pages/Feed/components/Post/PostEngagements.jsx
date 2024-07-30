@@ -86,7 +86,7 @@ const PostEngagements = ({ post, toggle: toggleTrue, onSelect, selected }) => {
           >
             <i className="bx bx-message-alt-detail"></i>
           </a>
-          {/* <span className="text-dark fw-semibold">{post.comments.length}</span> */}
+          <span className="text-dark fw-semibold">{post.comments.length}</span>
         </div>
       )}
       <a
