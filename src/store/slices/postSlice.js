@@ -52,6 +52,12 @@ const postsSlice = createSlice({
       }
     },
     addComments(state, actions) {
+      const { article_id } = actions.payload.comment;
+      const postIndex = state.items.findIndex((item) => item.id === article_id);
+      if (postIndex !== -1) {
+        state.items[postIndex].comments.unshift(actions.payload.comment);
+      }
+
       state.post.comments.unshift(actions.payload.comment);
     },
   },
