@@ -17,6 +17,8 @@ import api from "../../../../services/api";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useSearchParams } from "react-router-dom";
+import { postActions } from "../../../../store/slices/postSlice";
 
 const postSchema = z.object({
   title: z.string().min(1, { message: "Title is required" }),
@@ -77,9 +79,15 @@ const CreatePost = () => {
     }
   };
 
+  const [searchParams] = useSearchParams();
+
+  const query =
+    searchParams.get(`${import.meta.env.VITE_SEARCH_KEYWORD}`) || "";
+
   function succeed(data) {
     onClose();
-    dispatch(fetchPosts());
+    dispatch(postActions.setPost());
+    dispatch(fetchPosts({ search: query, page: 1 }));
     toast.success("Article posted successfully.");
     reset();
   }
