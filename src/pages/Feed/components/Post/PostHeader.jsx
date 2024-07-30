@@ -1,14 +1,20 @@
 import defaultProfile from "../../../../assets/images/avatars/user-default.jpg";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { encryptData } from "../../../../utils/enc";
 import { useNavigate } from "react-router-dom";
+import { postActions } from "../../../../store/slices/postSlice";
 const PostHeader = ({ post }) => {
   const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const viewProfile = (id) => {
     const user = encodeURIComponent(encryptData(id));
     console.log(user);
     navigate(`/profile/${user}`);
+  };
+
+  const removeItem = () => {
+    dispatch(postActions.removePost({ post }));
   };
 
   const postAvatar = post?.user?.profile_url || defaultProfile;
@@ -52,7 +58,7 @@ const PostHeader = ({ post }) => {
             }}
           >
             <li>
-              <a className="dropdown-item">
+              <a className="dropdown-item" onClick={removeItem}>
                 <i className="ti ti-trash text-danger me-1 fs-5"></i>
                 <span className="text-danger">Delete</span>
               </a>

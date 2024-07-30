@@ -60,6 +60,11 @@ const postsSlice = createSlice({
 
       state.post.comments.unshift(actions.payload.comment);
     },
+    removePost(state, actions) {
+      const { id } = actions.payload.post;
+
+      state.items = state.items.filter((item) => item.id !== id);
+    },
   },
   extraReducers(builder) {
     builder
