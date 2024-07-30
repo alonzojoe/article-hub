@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { encryptData } from "../../../../utils/enc";
 import { useNavigate } from "react-router-dom";
 import { postActions } from "../../../../store/slices/postSlice";
+import toast from "react-hot-toast";
+import useApi from "../../../../hooks/useApi";
 const PostHeader = ({ post }) => {
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -13,11 +15,28 @@ const PostHeader = ({ post }) => {
     navigate(`/profile/${user}`);
   };
 
-  const removeItem = () => {
+  const postAvatar = post?.user?.profile_url || defaultProfile;
+
+  const onSuccess = (data) => {
+    toast.success("Article has been deleted!");
+  };
+
+  const onFailure = () => {
+    toast.error("An error occured.");
+  };
+
+  const { isLoading, error, callApi } = useApi({
+    url: `/article/${post.id}`,
+    method: "DELETE",
+    onSuccess,
+    onFailure,
+  });
+
+  const deleteHandler = async () => {
+    callApi();
     dispatch(postActions.removePost({ post }));
   };
 
-  const postAvatar = post?.user?.profile_url || defaultProfile;
   return (
     <div className="d-flex align-items-center justify-content-between">
       <div className="d-flex align-items-center gap-3">
@@ -58,7 +77,7 @@ const PostHeader = ({ post }) => {
             }}
           >
             <li>
-              <a className="dropdown-item" onClick={removeItem}>
+              <a className="dropdown-item" onClick={deleteHandler}>
                 <i className="ti ti-trash text-danger me-1 fs-5"></i>
                 <span className="text-danger">Delete</span>
               </a>
