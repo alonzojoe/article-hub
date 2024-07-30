@@ -18,8 +18,8 @@ const PostComments = (props) => {
                 src={comment?.user?.profile_url || defaultProfile}
                 alt=""
                 className="rounded-circle"
-                width="33"
-                height="33"
+                width="35"
+                height="35"
               />
               <h6 className="fw-semibold mb-0 fs-4">{comment?.user?.name}</h6>
               <span className="fs-2">
@@ -27,7 +27,7 @@ const PostComments = (props) => {
                 {formatPostDate(comment.created_at)}
               </span>
             </div>
-            <p className="my-1">{comment.text}</p>
+            <p className="my-1 mx-5">{comment.text}</p>
           </div>
         ))}
     </div>
