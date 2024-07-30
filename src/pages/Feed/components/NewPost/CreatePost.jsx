@@ -1,4 +1,4 @@
-import { useRef, useCallback, useState } from "react";
+import { useRef, useEffect } from "react";
 import Card from "../../../../components/Card";
 import Textarea from "../../../../components/Textarea";
 import Label from "../../../../components/Label";
@@ -30,28 +30,26 @@ const CreatePost = () => {
   const [selectedFile, previewImg, handleFileUpload, clearUpload] =
     useFileUpload();
 
-  const titleRef = useRef();
-
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
     reset,
+    setFocus,
   } = useForm({
     resolver: zodResolver(postSchema),
   });
-
-  const setTitleRef = useCallback((node) => {
-    if (node) {
-      node.focus();
-    }
-    titleRef.current = node;
-  }, []);
 
   const showCreate = () => {
     console.log("create post has been rendered");
     toggleValue(true);
   };
+
+  useEffect(() => {
+    if (value) {
+      setFocus("title");
+    }
+  }, [value, setFocus]);
 
   const inputFileRef = useRef();
   const selectFile = () => {
@@ -148,7 +146,6 @@ const CreatePost = () => {
               <Input
                 {...register("title")}
                 className={`${errors.title ? "is-invalid" : ""}`}
-                ref={setTitleRef}
                 type="text"
                 placeholder="Article Title"
               />
