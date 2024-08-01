@@ -1,14 +1,16 @@
 import { useEffect } from "react";
 import Cookie from "cookiejs";
 import useApi from "./useApi";
+import { generateRandomKey } from "../utils/radomizer";
 
 const useSession = () => {
+  const key = generateRandomKey(56);
   const {
     isLoading: sessionLoader,
     error: sessionError,
     callApi,
   } = useApi({
-    url: "/auth/verify/wqewqeqximwue8x81427894x2184xm721894mx2819",
+    url: `/auth/verify/${key}`,
     method: "GET",
     onSuccess: (data) => {},
     onFailure: (error) => Cookie.remove(`${import.meta.env.VITE_AUTH_KEY}`),
