@@ -14,7 +14,11 @@ import CommentBox from "./components/Post/CommentBox";
 import ScrollLoader from "./Skeletons/ScrollLoader";
 import { useSearchParams } from "react-router-dom";
 import { postActions } from "../../store/slices/postSlice";
+import useSession from "../../hooks/useSession";
+import Loader from "../../components/Loader";
 const Feed = () => {
+  const { sessionLoader, sessionError } = useSession();
+
   const { items, isLoading, error, lastPage, currentPage } = useSelector(
     (state) => state.posts
   );
@@ -85,6 +89,13 @@ const Feed = () => {
     console.log("view comment", id);
     toggle(true);
   };
+
+  if (sessionLoader) return <Loader />;
+  if (sessionError) {
+    window.location.href = "/login";
+
+    return null;
+  }
 
   return (
     <>
