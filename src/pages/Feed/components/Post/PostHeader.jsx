@@ -48,7 +48,12 @@ const PostHeader = ({ post }) => {
           height="40"
           onClick={() => viewProfile(post?.user?.id)}
         />
-        <h6 className="fw-semibold mb-0 fs-4">{post.user.name}</h6>
+        <h6
+          className="fw-semibold mb-0 fs-4 cursor-pointer"
+          onClick={() => viewProfile(post?.user?.id)}
+        >
+          {post.user.name}
+        </h6>
         <span className="fs-2">
           <span className="p-1 text-bg-light rounded-circle d-inline-block"></span>
           {"  "}
