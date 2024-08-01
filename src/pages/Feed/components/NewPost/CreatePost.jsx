@@ -108,12 +108,12 @@ const CreatePost = () => {
           <div className="form-floating mb-3 flex-grow-1">
             <Textarea
               className="h-140"
-              placeholder="Write your article, Joe.."
+              placeholder={`Write your article, ${user?.name}...`}
               id="postText"
               onFocus={showCreate}
               style={{ resize: "none" }}
             ></Textarea>
-            <Label htmlFor="postText">Write your article, Joe...</Label>
+            <Label htmlFor="postText">{`Write your article, ${user?.name}...`}</Label>
           </div>
         </div>
 
@@ -131,7 +131,7 @@ const CreatePost = () => {
                   height="40"
                   alt="user"
                 />
-                <h6 className="fw-semibold mb-0 fs-4">Joe</h6>
+                <h6 className="fw-semibold mb-0 fs-4">{user?.name}</h6>
               </div>
 
               <div className="hstack gap-6">

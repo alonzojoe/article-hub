@@ -75,9 +75,10 @@ const UpdateProfile = ({ user, onClose }) => {
               <img
                 src={getProfileImageSrc()}
                 alt="profile"
-                className="img-fluid rounded-circle"
+                className="rounded-circle"
                 width="120"
                 height="120"
+                style={{ objectFit: "cover" }}
               />
               <input
                 type="file"

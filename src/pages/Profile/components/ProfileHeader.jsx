@@ -2,9 +2,14 @@ import Card from "../../../components/Card";
 import profileBg from "../../../assets/images/bg/profilebg.jpg";
 import Avatar from "../../../components/Avatar";
 import { useSelector } from "react-redux";
+import defaultImage from "../../../assets/images/avatars/user-default.jpg";
 const ProfileHeader = () => {
-  const { user } = useSelector((state) => state.auth);
+  const { items, isLoading, error } = useSelector((state) => state.posts);
+
+  const user = items[0]?.user;
+
   // const
+
   return (
     <Card className="overflow-hidden">
       <img src={profileBg} alt="profile-bg" className="img-fluid" />
@@ -39,7 +44,11 @@ const ProfileHeader = () => {
                   className="border border-4 border-white d-flex align-items-center justify-content-center rounded-circle overflow-hidden"
                   style={{ width: "100px", height: "100px" }}
                 >
-                  <Avatar alt="profile-picture" className="w-100 h-100" />
+                  <img
+                    src={user?.profile_url || defaultImage}
+                    alt="profile-picture"
+                    className="w-100 h-100"
+                  />
                 </div>
               </div>
             </div>
