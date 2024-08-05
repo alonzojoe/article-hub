@@ -86,9 +86,18 @@ const CommentBox = ({ postId }) => {
         className={`form-control-sm py-8 ${errors.comment ? "is-invalid" : ""}`}
         id="comment-box"
         placeholder={`Comment as ${user?.name}`}
+        disabled={isSubmitting}
       />
       <button className="btn btn-primary btn" disabled={isSubmitting}>
-        Comment
+        {isSubmitting ? (
+          <span
+            className="spinner-border spinner-border-sm"
+            role="status"
+            aria-hidden="true"
+          ></span>
+        ) : (
+          "Submit"
+        )}
       </button>
     </form>
   );
