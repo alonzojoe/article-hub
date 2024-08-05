@@ -54,11 +54,12 @@ const CommentBox = ({ postId }) => {
       user_id: user.id,
     };
 
+    await callApi(commentDetails);
+
     dispatch(postActions.addComments({ comment: commentDetails }));
 
     console.log("commentDetails", commentDetails);
 
-    await callApi(commentDetails);
     reset();
   };
 
