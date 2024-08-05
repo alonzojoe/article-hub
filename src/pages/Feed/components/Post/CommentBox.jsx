@@ -96,7 +96,7 @@ const CommentBox = ({ postId }) => {
             aria-hidden="true"
           ></span>
         ) : (
-          "Submit"
+          "Comment"
         )}
       </button>
     </form>
