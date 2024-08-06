@@ -21,7 +21,7 @@ const ProtectedRoutes = () => {
 
   useEffect(() => {
     callApi();
-  }, [auth]);
+  }, []);
 
   const [setAppTheme] = useTheme();
   const authUser = getLocalStorage(import.meta.env.VITE_AUTH_USER);
