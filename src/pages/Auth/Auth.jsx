@@ -7,10 +7,14 @@ import AuthRegister from "./components/AuthRegister";
 import AuthImages from "./components/AuthImages";
 import useToggle from "../../hooks/useToggle";
 import useTheme from "../../hooks/useTheme";
+import useSession from "../../hooks/useSession";
+import Loader from "../../components/Loader";
 import { Toaster } from "react-hot-toast";
 const Auth = () => {
   const [value, toggle] = useToggle(false);
   const [setAppTheme] = useTheme();
+  const { sessionLoader, sessionError } = useSession();
+
   useEffect(() => {
     setAppTheme();
   }, [setAppTheme]);
@@ -24,6 +28,13 @@ const Auth = () => {
   ) : (
     <AuthLogin changeSection={changeSection} />
   );
+
+  if (sessionLoader) return <Loader />;
+  if (!sessionError) {
+    window.location.href = "/";
+
+    return null;
+  }
 
   return (
     <>
