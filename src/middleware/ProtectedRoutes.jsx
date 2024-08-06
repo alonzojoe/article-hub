@@ -2,15 +2,14 @@ import { Outlet, Navigate } from "react-router-dom";
 import { useEffect } from "react";
 import useTheme from "../hooks/useTheme";
 import Loader from "../components/Loader";
-import { setupTokenInterceptors } from "../services/api";
-import Cookie from "cookiejs";
 import { decryptData } from "../utils/enc";
 import { getLocalStorage } from "../utils/storageActions";
 import { useDispatch } from "react-redux";
 import { setUser } from "../store/slices/authSlice";
 import useApi from "../hooks/useApi";
-
+import useAuthInterceptors from "../hooks/useAuthInterceptors";
 const ProtectedRoutes = () => {
+  useAuthInterceptors();
   const dispatch = useDispatch();
 
   const { isLoading, error, callApi } = useApi({
@@ -20,9 +19,7 @@ const ProtectedRoutes = () => {
     onFailure: (error) => Cookie.remove(`${import.meta.env.VITE_AUTH_KEY}`),
   });
 
-  const auth = Cookie.get(import.meta.env.VITE_AUTH_KEY);
   useEffect(() => {
-    if (auth) setupTokenInterceptors(auth);
     callApi();
   }, [auth]);
 
