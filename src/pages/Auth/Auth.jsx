@@ -10,7 +10,9 @@ import useTheme from "../../hooks/useTheme";
 import useSession from "../../hooks/useSession";
 import Loader from "../../components/Loader";
 import { Toaster } from "react-hot-toast";
+import useAuthInterceptors from "../../hooks/useAuthInterceptors";
 const Auth = () => {
+  useAuthInterceptors();
   const [value, toggle] = useToggle(false);
   const [setAppTheme] = useTheme();
   const { sessionLoader, sessionError } = useSession();
