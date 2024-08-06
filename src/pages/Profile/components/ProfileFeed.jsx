@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import FeedContainer from "../../Feed/components/FeedContainer";
 import Post from "../../Feed/components/Post/Post";
 import SkeletonPosts from "../../Feed/Skeletons/SkeletonPosts";
@@ -7,6 +7,7 @@ import { fetchUserPosts } from "../../../store/thunks/postsThunks";
 import Modal from "../../../components/Modal";
 import useToggle from "../../../hooks/useToggle";
 import SelectedPost from "../../Feed/components/Post/SelectedPost";
+import CommentBox from "../../Feed/components/Post/CommentBox";
 const ProfileFeed = ({ userId }) => {
   const dispatch = useDispatch();
   const { items, isLoading, error } = useSelector((state) => state.posts);
