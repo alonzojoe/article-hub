@@ -19,9 +19,15 @@ import Loader from "../../components/Loader";
 const Feed = () => {
   const { sessionLoader, sessionError } = useSession();
 
-  const { items, isLoading, error, lastPage, currentPage } = useSelector(
-    (state) => state.posts
-  );
+  const {
+    items,
+    total_items,
+    interval,
+    isLoading,
+    error,
+    lastPage,
+    currentPage,
+  } = useSelector((state) => state.posts);
 
   const dispatch = useDispatch();
   const [selectedPost, setSelectedPost] = useState(null);
@@ -119,7 +125,7 @@ const Feed = () => {
                 Search Result For &quot;{query}&quot;
               </h4>
               <p className="card-subtitle mb-0">
-                {/* About 14,700 result ( 0.10 seconds) */}
+                About {total_items} result ({interval} seconds)
               </p>
             </div>
           </div>

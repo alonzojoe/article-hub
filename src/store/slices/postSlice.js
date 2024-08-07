@@ -6,6 +6,8 @@ const postsSlice = createSlice({
   initialState: {
     currentPage: 1,
     items: [],
+    total_items: 0,
+    interval: 0,
     isLoading: false,
     error: null,
     post: {},
@@ -75,6 +77,8 @@ const postsSlice = createSlice({
         console.log("actions", actions.payload);
         state.isLoading = false;
         state.items = [...state.items, ...actions.payload.data];
+        state.total_items = actions.payload.total;
+        state.interval = actions.payload.interval;
         state.lastPage = actions.payload.lastPage;
       })
       .addCase(fetchPosts.rejected, (state, actions) => {

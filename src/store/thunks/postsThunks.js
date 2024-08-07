@@ -1,20 +1,30 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import api from "../../services/api";
 import { formatPostDate } from "../../utils/dates";
+import moment from "moment";
 export const fetchPosts = createAsyncThunk("fetchPosts", async (params) => {
+  const startTime = moment();
+
   const response = await api.get("/article", {
     params,
   });
-  const posts = response.data.data.map((article) => {
+
+  const posts = await response.data.data.map((article) => {
     return {
       ...article,
       created_at: formatPostDate(article.created_at),
     };
   });
 
+  const endTime = moment();
+  const intervalMilliseconds = endTime.diff(startTime);
+  const intervalSeconds = (intervalMilliseconds / 1000).toFixed(2);
+
   return {
     data: posts,
+    total: response.data.total,
     lastPage: response.data.last_page,
+    interval: intervalSeconds,
   };
 });
 
