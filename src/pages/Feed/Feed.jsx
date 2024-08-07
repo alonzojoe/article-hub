@@ -112,6 +112,18 @@ const Feed = () => {
       )}
       <FeedContainer>
         <CreatePost />
+        {query && items.length !== 0 && (
+          <div className="card mb-0">
+            <div className="card-body">
+              <h4 className="card-title">
+                Search Result For &quot;{query}&quot;
+              </h4>
+              <p className="card-subtitle mb-0">
+                {/* About 14,700 result ( 0.10 seconds) */}
+              </p>
+            </div>
+          </div>
+        )}
         {errorMessage}
         {items.length > 0 &&
           items.map((post) => (
