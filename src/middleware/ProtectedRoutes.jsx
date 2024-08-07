@@ -8,20 +8,12 @@ import { useDispatch } from "react-redux";
 import { setUser } from "../store/slices/authSlice";
 import useApi from "../hooks/useApi";
 import useAuthInterceptors from "../hooks/useAuthInterceptors";
+import useSession from "../hooks/useSession";
 const ProtectedRoutes = () => {
   useAuthInterceptors();
   const dispatch = useDispatch();
 
-  const { isLoading, error, callApi } = useApi({
-    url: "/auth/session",
-    method: "GET",
-    onSuccess: (data) => {},
-    onFailure: (error) => Cookie.remove(`${import.meta.env.VITE_AUTH_KEY}`),
-  });
-
-  useEffect(() => {
-    callApi();
-  }, []);
+  const { sessionLoader, sessionError } = useSession();
 
   const [setAppTheme] = useTheme();
   const authUser = getLocalStorage(import.meta.env.VITE_AUTH_USER);
@@ -34,8 +26,8 @@ const ProtectedRoutes = () => {
     }
   }, [setAppTheme, authUser, dispatch]);
 
-  if (isLoading) return <Loader />;
-  if (error) window.location.href = "/login";
+  if (sessionLoader) return <Loader />;
+  if (sessionError) window.location.href = "/login";
 
   return <Outlet />;
 };
