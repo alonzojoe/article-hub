@@ -102,7 +102,8 @@ const Navbar = () => {
           aria-label="Toggle navigation"
         >
           <span className="p-2">
-            <i className="ti ti-dots fs-7"></i>
+            {/* <i class="ti ti-chevron-down text-dark fs-10"></i> */}
+            <i className="ti ti-dots text-dark fs-10"></i>
           </span>
         </button>
       </div>
