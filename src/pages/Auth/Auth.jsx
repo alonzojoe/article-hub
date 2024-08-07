@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 import Logo from "../../components/Logo";
 import AuthContainer from "./components/AuthContainer";
 import Card from "../../components/Card";
@@ -17,7 +17,7 @@ const Auth = () => {
   const [setAppTheme] = useTheme();
   const { sessionLoader, sessionError } = useSession();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setAppTheme();
   }, [setAppTheme]);
 
