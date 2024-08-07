@@ -12,6 +12,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
+
 const authSchema = z.object({
   email: z
     .string()
@@ -98,7 +99,10 @@ const AuthLogin = ({ changeSection }) => {
         <div className="invalid-feedback">{errors.password?.message}</div>
       </div>
       <div className="d-flex align-items-center justify-content-end mb-4">
-        <a className="text-primary fw-medium" href="#">
+        <a
+          className="text-primary fw-medium"
+          onClick={() => toast.error("Email hosting is currently unavailable.")}
+        >
           Forgot Password ?
         </a>
       </div>
